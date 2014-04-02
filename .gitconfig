@@ -1,2 +1,12 @@
 [core]
 	excludesfile = ~/.gitignore_global
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = auto
+[core]
+	editor = vim
+[credential]
+	helper = osxkeychain
