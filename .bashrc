@@ -51,9 +51,9 @@ reset=$(tput -Txterm sgr0)
 export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(__vcs_name) \[\033[00m\]\[$reset\]\[$reset\]\$ '
 
 # Aliases!
-alias ls='ls -ph'
-alias ll='ls -l'
-alias ..='cd ..'
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 # If MacVim is installed, use that
 if [[ -e /usr/bin/mvim || -e /usr/local/bin/mvim || -e /bin/mvim ]]; then
