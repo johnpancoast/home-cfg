@@ -3,7 +3,7 @@
 "
 
 set background=dark
-colorscheme solarized
+colorscheme flatland
 
 " use file extensions for syntax highlights
 filetype plugin on
