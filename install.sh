@@ -28,4 +28,6 @@ read email
 
 echo "[user]"$'\n\t'"email = $email"$'\n\t'"name = $name"$'\n' >> ~/.gitconfig
 
+source ~/.bash_profile
+
 echo $'\n'"** Finished!"
