@@ -50,6 +50,10 @@ reset=$(tput -Txterm sgr0)
 # Nicely formatted terminal prompt
 export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(__vcs_name) \[\033[00m\]\[$reset\]\[$reset\]\$ '
 
+# ls colors
+[ "$TERM" = "xterm" ] && TERM="xterm-256color"
+alias ls='ls --color'
+
 # Aliases!
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
