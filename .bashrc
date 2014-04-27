@@ -64,3 +64,4 @@ if [[ -e /usr/bin/mvim || -e /usr/local/bin/mvim || -e /bin/mvim ]]; then
     alias vi="mvim $1"
 fi
 
+screen -ls
