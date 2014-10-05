@@ -1,5 +1,4 @@
 # my aliases
-alias ls="ls -pF"
 alias l="ls"
 alias vi="vim"
 alias v="vim"
