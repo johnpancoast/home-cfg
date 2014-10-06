@@ -13,6 +13,7 @@ alias rm="rm -i"
 alias search-php="firefox http://php.net/${1}"
 alias pingrouter="ping -i .2 192.168.1.1"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias v="vagrant"
 
 # connect to db
 alias sqlsh="sqlsh.sh"
