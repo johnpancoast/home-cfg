@@ -14,6 +14,7 @@ alias search-php="firefox http://php.net/${1}"
 alias pingrouter="ping -i .2 192.168.1.1"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias v="vagrant"
+alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
 
 # connect to db
 alias sqlsh="sqlsh.sh"
