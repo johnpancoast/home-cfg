@@ -1,24 +1,16 @@
 # my aliases
 alias l="ls"
 alias vi="vim"
-alias v="vim"
 alias xx="sudo"
 alias Less="less"
 alias ill="cd ~/sites"
-alias lorum="cat ~/lorum_ipsum|less"
 alias mygpg="gpg -c --force-mdc"
 alias cp="cp -i"
 alias mv="mv -i"
 alias rm="rm -i"
-alias search-php="firefox http://php.net/${1}"
-alias pingrouter="ping -i .2 192.168.1.1"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias v="vagrant"
 alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
-
-# connect to db
-alias sqlsh="sqlsh.sh"
-alias db="sqlsh.sh"
 
 # some mysqldump quickies
 alias getdb="mysqldump -u root -p"
