@@ -1,3 +1,5 @@
 defshell -bash
 defscrollback 10000
 termcapinfo xterm* ti@:te@
+startup_message off
+shell -$SHELL
