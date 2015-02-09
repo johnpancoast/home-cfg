@@ -15,7 +15,7 @@ if [ -e ~/.vim ]; then
 fi
 
 # Copy the required files to the home directory
-cp -r .bash_git .bash_profile .bashrc .gitconfig .gitignore_global .vimrc .vim git-completion.bash ~/
+cp -r .bash_git .bash_profile .bashrc .gitconfig .gitignore_global .vimrc .vim .git-completion.bash .symfony-completion.bash  ~/
 echo "Dot Files copied into your home directory..."
 echo "Done."$'\n\n'
 

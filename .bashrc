@@ -9,11 +9,11 @@ source ~/.bash_git
 if [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
 else
-    source ~/git-completion.bash
+    source ~/.git-completion.bash
 fi
 
-if [ -f ~/.console_completion ]; then
-    source ~/.console_completion
+if [ -f ~/.symfony-completion.bash ]; then
+    source ~/.symfony-completion.bash
 fi
 
 __has_parent_dir () {
