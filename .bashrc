@@ -12,6 +12,10 @@ else
     source ~/git-completion.bash
 fi
 
+if [ -f ~/.console_completion ]; then
+    source ~/.console_completion
+fi
+
 __has_parent_dir () {
     # Utility function so we can test for things like .git/.hg without firing up a
     # separate process
