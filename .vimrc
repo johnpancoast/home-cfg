@@ -42,3 +42,6 @@ endif
 " for phpstorm
 set visualbell
 set noerrorbells
+
+" osx clipboard copying
+set clipboard=unnamed
