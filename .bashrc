@@ -59,7 +59,7 @@ export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow
 
 # ls colors
 [ "$TERM" = "xterm" ] && TERM="xterm-256color"
-alias ls='ls --color'
+#alias ls='ls --color'
 
 # Aliases!
 if [ -f ~/.bash_aliases ]; then
@@ -67,8 +67,10 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # If MacVim is installed, use that
-if [[ -e /usr/bin/mvim || -e /usr/local/bin/mvim || -e /bin/mvim ]]; then
-    alias vi="mvim $1"
-fi
+#if [[ -e /usr/bin/mvim || -e /usr/local/bin/mvim || -e /bin/mvim ]]; then
+#    alias vi="mvim $1"
+#fi
+
+export EDITOR=/usr/bin/vim
 
 #screen -ls
