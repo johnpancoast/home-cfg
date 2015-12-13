@@ -16,7 +16,7 @@ if [ -f ~/.symfony-completion.bash ]; then
     source ~/.symfony-completion.bash
 fi
 
-__has_parent_dir () {
+has_parent_dir () {
     # Utility function so we can test for things like .git/.hg without firing up a
     # separate process
     test -d "$1" && return 0;
@@ -32,12 +32,12 @@ __has_parent_dir () {
     return 1;
 }
 
-__vcs_name() {
+vcs_name() {
     if [ -d .svn ]; then
         echo "-[svn]";
-    elif __has_parent_dir ".git"; then
+    elif has_parent_dir ".git"; then
         echo "-[$(__git_ps1 '%s')]";
-    elif __has_parent_dir ".hg"; then
+    elif has_parent_dir ".hg"; then
         echo "-[$(hg branch)]"
     fi
 }
@@ -55,7 +55,7 @@ bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
 # Nicely formatted terminal prompt
-export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(__vcs_name) \[\033[00m\]\[$reset\]\[$reset\]\$ '
+export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]\$ '
 
 # ls colors
 [ "$TERM" = "xterm" ] && TERM="xterm-256color"
