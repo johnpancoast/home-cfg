@@ -42,7 +42,9 @@ vcs_name() {
     fi
 }
 
-# Terminal Prompt Colors
+#################
+# prompt colors #
+#################
 black=$(tput -Txterm setaf 0)
 red=$(tput -Txterm setaf 1)
 green=$(tput -Txterm setaf 2)
@@ -56,6 +58,45 @@ reset=$(tput -Txterm sgr0)
 
 # Nicely formatted terminal prompt
 export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]\$ '
+
+# TODO Fix this below. It is our new prompt and will replace PS1 above
+#################
+## prompt parts #
+#################
+## main
+#open="["
+#close="]"
+#sep="-"
+#color_reset="\[$bold\]\[$black\]"
+#
+## user
+#open_user=${open}
+#close_user=${close}
+#user="\u"
+#host="\h"
+#
+## dir
+#open_dir="${open}"
+#close_dir="${close}"
+#dir="\w"
+#
+## repo
+#open_repo="${open}"
+#close_repo="${close}"
+#repo="\[\033[0;33m\]${vcs_name}\[\033[00m\]"
+#
+## begin end
+#prompt_begin="${color_reset}"
+#prompt_end="\$ ${reset}"
+#
+####################
+## prompt sections #
+####################
+#prompt_user="${color_reset}\[${yellow}\]${open_user}${user}@${host}${close_user}"
+#prompt_dir="${color_reset}\[${lt_blue}\]${open_dir}${dir}${close_dir}"
+#prompt_repo="${color_reset}\[${pink}\]${open_repo}${repo}${close_repo}"
+#
+#export PS1="${prompt_begin}${prompt_user}${sep}${prompt_dir}${sep}${prompt_repo}${sep}${prompt_end}"
 
 # ls colors
 [ "$TERM" = "xterm" ] && TERM="xterm-256color"
