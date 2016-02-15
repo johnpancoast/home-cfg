@@ -10,7 +10,10 @@ alias mv="mv -i"
 alias rm="rm -i"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias v="vagrant"
-alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
+alias sdiff="svn diff|view -"
+alias svn-diff="svn diff|view -"
+alias create-symfony-bootstrap-cache="vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php"
+#alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
 
 # some mysqldump quickies
 alias getdb="mysqldump -u root -p"
