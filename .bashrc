@@ -35,9 +35,9 @@ has_parent_dir () {
 vcs_name() {
     if [ -d .svn ]; then
         echo "-[svn]";
-    elif __has_parent_dir ".git"; then
+    elif has_parent_dir ".git"; then
         echo " ($(__git_ps1 '%s'))";
-    elif __has_parent_dir ".hg"; then
+    elif has_parent_dir ".hg"; then
         echo " ($(hg branch))"
     fi
 }
@@ -57,8 +57,8 @@ bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
 # Nicely formatted terminal prompt
-#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(__vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
-export PS1='\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(__vcs_name)\[$bold\]\[$black\]]\[$reset\]\n\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]\[$reset\]-$ '
+#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
+export PS1='\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]\[$reset\]-$ '
 
 # TODO Fix this below. It is our new prompt and will replace PS1 above
 #################
