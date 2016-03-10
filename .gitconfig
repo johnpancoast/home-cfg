@@ -10,3 +10,11 @@
 	editor = vim
 [credential]
 	helper = osxkeychain
+[user]
+	name = John Pancoast
+	email = johnpancoaster@gmail.com
+[push]
+	default = simple
+[difftool]
+    # Be able to abort all diffs with `:cq` or `:cquit`
+    trustExitCode = true
