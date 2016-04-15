@@ -8,6 +8,7 @@
     ui = auto
 [core]
 	editor = vim
+	autocrlf = input
 [credential]
 	helper = osxkeychain
 [user]
@@ -18,3 +19,11 @@
 [difftool]
     # Be able to abort all diffs with `:cq` or `:cquit`
     trustExitCode = true
+	prompt = false
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[alias]
+	dt = difftool
+	df = difftool
