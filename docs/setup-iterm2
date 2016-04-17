@@ -1,7 +1,9 @@
 # TODO automate
-* Download gruvbox-dark color preset: https://github.com/morhetz/gruvbox-contrib/tree/master/iterm2
-* Import above preset (Settings > Colors > Color Presets > Import
-* Select above preset
+
+# I don't do these anymore
+# * Download gruvbox-dark color preset: https://github.com/morhetz/gruvbox-contrib/tree/master/iterm2
+# * Import above preset (Settings > Colors > Color Presets > Import
+# * Select above preset
 * Set transparency to taste
 * Set key for Option+<- and Option+-> to equal b and f escape sequences, respectively (to jump words similarly to OSX terminal).
 * Set key Shift+Option+<- to selct left pane, do same for all directions
