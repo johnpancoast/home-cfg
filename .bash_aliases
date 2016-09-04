@@ -41,7 +41,7 @@ alias ..='cd ..'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # read a private bash alias if exists
-# useful when aliases exist to things which shouldn't
+# useful when aliases exist for things which shouldn't
 # be in public repo
 if [ -f ~/.bash_aliases_private ]; then
     . ~/.bash_aliases_private
