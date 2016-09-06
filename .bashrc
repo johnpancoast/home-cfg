@@ -115,6 +115,4 @@ fi
 
 export EDITOR=/usr/bin/vim
 
-export EDITOR=/usr/bin/vim
-
 #screen -ls
