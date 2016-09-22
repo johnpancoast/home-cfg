@@ -1,7 +1,7 @@
 nix-common
 ==========
 
-A collection of dot files and other common &#42;nix'y stuff I use.
+My common tools for &#42;nix machines. This includes utilities and dot files amongst whatever else...
 
 # Install
 ... docs soon.
