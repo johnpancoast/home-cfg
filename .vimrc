@@ -45,3 +45,10 @@ set noerrorbells
 
 " osx clipboard copying
 set clipboard=unnamed
+
+" golang
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
+filetype plugin indent on
+syntax on
