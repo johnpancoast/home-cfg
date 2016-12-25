@@ -1,4 +1,4 @@
-export PATH=$PATH:~/.composer/vendor/bin
+export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:~/bin
 
 export CLICOLOR=1
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
@@ -103,7 +103,7 @@ export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[
 [ "$TERM" = "xterm" ] && TERM="xterm-256color"
 #alias ls='ls --color'
 
-# Aliases!
+# Aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -114,5 +114,6 @@ fi
 #fi
 
 export EDITOR=/usr/bin/vim
+export ANDROID_HOME=~/Library/Android/sdk
 
 #screen -ls
