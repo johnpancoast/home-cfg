@@ -1,4 +1,4 @@
-export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:~/bin
+export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:~/bin:~/.composer/vendor/bin
 
 export CLICOLOR=1
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
