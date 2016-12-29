@@ -13,7 +13,10 @@ alias v="vagrant"
 alias sdiff="svn diff|view -"
 alias svn-diff="svn diff|view -"
 alias create-symfony-bootstrap-cache="vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php"
+alias d="docker"
 #alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
+
+alias idea_log="~/Library/Logs/IntelliJIdea2016.3/idea.log"
 
 # some mysqldump quickies
 alias getdb="mysqldump -u root -p"
