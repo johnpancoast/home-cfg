@@ -14,6 +14,7 @@ alias sdiff="svn diff|view -"
 alias svn-diff="svn diff|view -"
 alias create-symfony-bootstrap-cache="vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php"
 alias d="docker"
+alias sb="source ~/.bash_profile"
 #alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
 
 alias idea_log="~/Library/Logs/IntelliJIdea2016.3/idea.log"
@@ -46,6 +47,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # read a private bash alias if exists
 # useful when aliases exist for things which shouldn't
 # be in public repo
-if [ -f ~/.bash_aliases_private ]; then
-    . ~/.bash_aliases_private
+if [ -f ~/.bash_aliases_priv ]; then
+    . ~/.bash_aliases_priv
 fi
