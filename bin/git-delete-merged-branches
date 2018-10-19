@@ -1,0 +1,20 @@
+#!/bin/bash
+
+branch=$1
+
+if [ "x${branch}" == "x" ]; then
+    echo "You must specify the subject branch as the first argument to this command."
+    echo "All local branches that have been merged to the subject branch will be deleted using this command."
+    echo "Exiting..."
+    exit
+fi
+
+echo -e "\n\nThis command will delete all local branches that have been merged to the subject branch '${branch}'.\n"
+echo -e "The currently checked out branch cannot be deleted per git's rules.\n"
+echo -e "Additionally, you may see errors that a branch couldn't be deleted. These are sometimes re: branches whose"
+echo -e "code looks to be merged, but which also contain additional and/or different code. You must examine these"
+echo -e "branch's diffs yourself to determine if they're safe to delete, then use 'git branch -D NAME'.\n\n"
+
+git fetch
+git branch --merged ${branch} | egrep -v "(^\*|master|dev)" | xargs git branch -d
+

@@ -1,0 +1,136 @@
+#!/bin/bash
+#
+# Recursively read all .alda files in a directory, compile them, and run the score.
+#
+# This command takes exactly one argument, the directory for which the 
+# alda score exists. This directory must contain a file called ".alda-score"
+# to enable this behavior. This is also where the scores get generated.
+#
+# TODO Sanitize the f outta this ish
+# TODO Add better argument handling for nice opts and help output.
+
+# Input
+script="$0"
+dir="$1"
+
+# Init
+sleep_amt="0.2"
+alda_worker_count="5"
+score_file_name="alda-score.alda"
+date="$(date)" 
+# vars derived from ${dir} ($1) input. These will be invalid if $1 ($dir) invalid, but script will error then anyway.
+dir="$(realpath ${dir})"
+lockfile="${dir}/.alda-score.lock"
+score="${dir}/${score_file_name}"
+
+# Messages
+msg_create_score="Creating score"
+ 
+# Error messages
+error_arg=$(cat <<EOF
+Must pass a directory as the first argument. The directory must exist,
+it must contain a file named "${score_file_name}" where the score will get generated,
+and it must contain at least one .alda file to compile.
+Exiting...
+EOF)
+
+### FUNCTIONS
+is_alda_up()
+{
+    if [ $(alda status | grep -o "Server down") = "Server down" ]; then
+        return false
+    else
+        return true
+    fi
+}
+
+alda_stop()
+{
+    alda stop
+}
+
+alda_up()
+{
+    alda -w ${alda_worker_count} up
+}
+
+alda_down()
+{
+    alda down
+}
+
+check_sanity()
+{
+
+    if [ "x${dir}" = "x" ]; then
+        echo ${error_arg}
+        exit
+    fi
+
+    # Only work during a valid lock
+    if [ -f "${lockfile}" ]; then
+        echo "Lock file exists at ${lockfile}. Remove it first."
+        echo "Exiting..."
+        exit
+    fi
+
+    if [[ ! -d ${dir} || ! -f "${score}" || $(find ${dir} -name "*.alda") = "" ]]; then
+        echo ${error_arg}
+        exit
+    fi
+}
+
+create_alda_score()
+{
+    # refresh the alda score
+    echo "" > ${score}
+    echo "# This is an auto-generated alda score file from various alda files found in ${dir}." >> ${score}
+    echo "# It was generated at '${date}'." >> ${score}
+    echo "# Use ${script} to recompile this score from alda files in this directory." >> ${score}
+    echo "# You must pass this directory to the command." >> ${score}
+    echo "" >> ${score}
+    echo "" >> ${score}
+
+    # TODO optimize the duplicate call to this command if necessary
+    for aldafile in $(find ${dir} -name "*.alda"); do
+        if [ "${aldafile}" = "${score}" ]; then
+            continue
+        fi
+
+        echo "#######################################" >> ${score}
+        echo "# Instrument ${aldafile}" >> ${score}
+
+        cat ${aldafile} >> ${score}
+        echo "" >> ${score}
+        echo "" >> ${score}
+    done
+}
+
+play_score()
+{
+    sleep ${sleep_amt} && alda play --file ${score}
+}
+
+main()
+{
+    check_sanity
+
+    # use locks
+    touch ${lockfile}
+
+    if [ ! is_alda_up ]; then
+        alda_up
+    fi
+
+    alda_stop
+    echo "${msg_create_score}"
+    create_alda_score
+    play_score
+
+    rm ${lockfile}
+}
+### END FUNCTIONS
+
+# start, go, do things, be somebody
+main
+
