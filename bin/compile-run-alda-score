@@ -25,16 +25,16 @@ score="${dir}/${score_file_name}"
 
 # Messages
 msg_create_score="Creating score"
- 
+
 # Error messages
 error_arg=$(cat <<EOF
 Must pass a directory as the first argument. The directory must exist,
 it must contain a file named "${score_file_name}" where the score will get generated,
 and it must contain at least one .alda file to compile.
 Exiting...
-EOF)
+EOF
+)
 
-### FUNCTIONS
 is_alda_up()
 {
     if [ $(alda status | grep -o "Server down") = "Server down" ]; then
