@@ -3,7 +3,7 @@
 "
 
 set background=dark
-colorscheme flatland
+colorscheme wood
 
 " use file extensions for syntax highlights
 filetype plugin on
