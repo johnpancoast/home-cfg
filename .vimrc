@@ -40,7 +40,7 @@ if has("autocmd")
 endif
 
 " for phpstorm
-set visualbell
+" set visualbell
 set noerrorbells
 
 " osx clipboard copying
