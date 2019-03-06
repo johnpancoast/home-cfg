@@ -1,4 +1,4 @@
-export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:~/bin:~/.composer/vendor/bin
+export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:/usr/local/bin:/usr/local/sbin:~/bin
 
 export CLICOLOR=1
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
@@ -32,13 +32,19 @@ has_parent_dir () {
     return 1;
 }
 
-vcs_name() {
+get_vcs_name() {
     if [ -d .svn ]; then
         echo "-[svn]";
     elif has_parent_dir ".git"; then
-        echo " ($(__git_ps1 '%s'))";
+        # deal with the fact that __git_ps1 '%s' cmd prints () for tags != master
+        git_tag="$(__git_ps1 '%s')";
+        if [[ "${git_tag}" == "master" ]]; then
+            echo " (${git_tag})";
+        else
+            echo " ${git_tag}";
+        fi
     elif has_parent_dir ".hg"; then
-        echo " ($(hg branch))"
+        echo " $(hg branch)"
     fi
 }
 
@@ -49,7 +55,7 @@ black=$(tput -Txterm setaf 0)
 red=$(tput -Txterm setaf 1)
 green=$(tput -Txterm setaf 2)
 yellow=$(tput -Txterm setaf 3)
-dk_blue=$(tput -Txterm setaf 4)
+blue=$(tput -Txterm setaf 4)
 pink=$(tput -Txterm setaf 5)
 lt_blue=$(tput -Txterm setaf 6)
 
@@ -57,8 +63,8 @@ bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
 # Nicely formatted terminal prompt
-#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
-export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+#export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
+export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$lt_blue\]\w\[$black\]\[$reset\]\[$lt_blue\]$(get_vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
 
 # TODO Fix this below. It is our new prompt and will replace PS1 above
 #################
