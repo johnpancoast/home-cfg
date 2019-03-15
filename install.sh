@@ -16,8 +16,8 @@ echo "PHP Syntax updated based on installed packages..."
 
 # Copy the required files to the home directory
 echo -n "Copying dotfiles into home directory... "
-cp -r .bash_git .bash_profile .bashrc .gitconfig .gitignore_global .vimrc .ideavimrc .vim .git-completion.bash .symfony-completion.bash ~/
-cp -r vim-colorschemes/colors ~/.vim/
+cp .bash_git .bash_profile .bashrc .gitconfig .gitignore_global .vimrc .ideavimrc .vim .git-completion.bash .symfony-completion.bash ~/
+cp -R vim-colorschemes/colors ~/.vim/
 
 #echo "[user]"$'\n\t'"email = $email"$'\n\t'"name = $name"$'\n' >> ~/.gitconfig
 source ~/.bashrc
