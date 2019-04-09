@@ -109,7 +109,7 @@ export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$gr
 
 # ls colors
 [ "$TERM" = "xterm" ] && TERM="xterm-256color"
-#alias ls='ls --color'
+alias ls='ls --color'
 
 # Aliases
 if [ -f ~/.bash_aliases ]; then
