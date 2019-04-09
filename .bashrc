@@ -4,7 +4,9 @@ export CLICOLOR=1
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 
-source ~/.bash_git
+if [ -f ~/.git-prompt.bash ]; then
+    source ~/.git-prompt.bash
+fi
 
 if [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
