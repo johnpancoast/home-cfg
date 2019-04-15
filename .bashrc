@@ -108,8 +108,8 @@ export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$gr
 #export PS1="${prompt_begin}${prompt_user}${sep}${prompt_dir}${sep}${prompt_repo}${sep}${prompt_end}"
 
 # ls colors
-[ "$TERM" = "xterm" ] && TERM="xterm-256color"
-alias ls='ls --color'
+#[ "$TERM" = "xterm" ] && TERM="xterm-256color"
+#alias ls='ls --color'
 
 # Aliases
 if [ -f ~/.bash_aliases ]; then
