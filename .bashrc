@@ -1,9 +1,5 @@
 export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:/usr/local/bin:/usr/local/sbin:~/bin
 
-export CLICOLOR=1
-#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-
 if [ -f ~/.git-prompt.bash ]; then
     source ~/.git-prompt.bash
 fi
@@ -108,8 +104,14 @@ export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$gr
 #export PS1="${prompt_begin}${prompt_user}${sep}${prompt_dir}${sep}${prompt_repo}${sep}${prompt_end}"
 
 # ls colors
-#[ "$TERM" = "xterm" ] && TERM="xterm-256color"
-#alias ls='ls --color'
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    alias ls="ls -G"
+    export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+    #export CLICOLOR=1
+    #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+elif [[ "$(uname -s)" == "Linux" ]]; then
+    alias ls='ls --color'
+fi
 
 # Aliases
 if [ -f ~/.bash_aliases ]; then
