@@ -1,4 +1,4 @@
-export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:/usr/local/bin:/usr/local/sbin:~/.symfony/bin:~/bin
 
 if [ -f ~/.git-prompt.bash ]; then
     source ~/.git-prompt.bash
@@ -6,7 +6,7 @@ fi
 
 if [ -f /etc/bash_completion ]; then
     source /etc/bash_completion
-else
+elif [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
