@@ -1,11 +1,20 @@
 export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:/usr/local/bin:/usr/local/sbin:~/.symfony/bin:~/bin
 
-if [ -f ~/.git-prompt.bash ]; then
-    source ~/.git-prompt.bash
+# Pick git completion based on how it was installed, macOS dev tools, brew, manual, etc
+
+# git completion - macOS dev tools
+if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
+    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 fi
 
-if [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
+# git completion - brew
+if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
+  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+fi
+
+# git completion - manual
+if [ -f ~/.git-prompt.bash ]; then
+    source ~/.git-prompt.bash
 elif [ -f ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
@@ -111,6 +120,10 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 elif [[ "$(uname -s)" == "Linux" ]]; then
     alias ls='ls --color'
+fi
+
+if [[ -f ~/.bashrc_vagrant && -d /vagrant && $(whoami) == "vagrant" ]]; then
+    . ~/.bashrc_vagrant
 fi
 
 # Aliases
