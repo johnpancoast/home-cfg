@@ -8,8 +8,8 @@ if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.ba
 fi
 
 # git completion - brew
-if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-  . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+if [ -f /etc/bash_completion.d/git-completion.bash ]; then
+  . /etc/bash_completion.d/git-completion.bash
 fi
 
 # git completion - manual
