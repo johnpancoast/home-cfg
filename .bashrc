@@ -1,28 +1,9 @@
-export PATH=$PATH:~/.composer/vendor/bin:~/Library/Android/sdk/platform-tools:~/Library/Android/sdk/tools:/usr/local/bin:/usr/local/sbin:~/.symfony/bin:~/bin
+# TODO Clean all of this up or break out into separate files. Put things into functions.
+# TODO Move appropriate sections to .profile or .bash_profile, for example PATH.
 
-# Pick git completion based on how it was installed, macOS dev tools, brew, manual, etc
-
-# git completion - macOS dev tools
-if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
-    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
-fi
-
-# git completion - brew
-if [ -f /etc/bash_completion.d/git-completion.bash ]; then
-  . /etc/bash_completion.d/git-completion.bash
-fi
-
-# git completion - manual
-if [ -f ~/.git-prompt.bash ]; then
-    source ~/.git-prompt.bash
-elif [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
-fi
-
-if [ -f ~/.symfony-completion.bash ]; then
-    source ~/.symfony-completion.bash
-fi
-
+####################
+# Functions
+####################
 has_parent_dir () {
     # Utility function so we can test for things like .git/.hg without firing up a
     # separate process
@@ -39,30 +20,82 @@ has_parent_dir () {
     return 1;
 }
 
-get_vcs_name() {
+vcs_name() {
     if [ -d .svn ]; then
         echo "-[svn]";
     elif has_parent_dir ".git"; then
-        # deal with the fact that __git_ps1 '%s' cmd prints () for tags != master
-        git_tag="$(__git_ps1 '%s')";
-        if [[ "${git_tag}" == "master" ]]; then
-            echo " (${git_tag})";
-        else
-            echo " ${git_tag}";
-        fi
+        echo " ($(__git_ps1 '%s'))";
     elif has_parent_dir ".hg"; then
-        echo " $(hg branch)"
+        echo " ($(hg branch))"
     fi
 }
 
-#################
-# prompt colors #
-#################
+####################
+# Variables
+# PATH, etc
+####################
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:~/Library/Android/sdk/platform-tools
+export PATH=$PATH:~/Library/Android/sdk/tools
+export PATH=$PATH:~/.symfony/bin
+export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
+export PATH=$PATH:~/bin
+export PATH=$PATH:~/.composer/vendor/bin
+export PATH=$PATH:$(brew --prefix php@7.1)/bin
+
+export EDITOR=/usr/bin/vim
+export ANDROID_HOME=~/Library/Android/sdk
+
+####################
+# Sourced files
+####################
+
+# Source git completion based on OS
+# TODO Fucking pick an appropriate one for OS... FFS... too much cruft!!
+#
+# macOS CLI tools
+if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
+    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+# manual
+elif [ -f ~/.git-completion.bash ]; then
+    source ~/.git-completion.bash
+elif [ -f ~/.git-prompt.bash ]; then
+    source ~/.git-prompt.bash
+elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion
+elif [ -f ~/.bash_git ]; then
+    source ~/.bash_git
+fi
+
+# Source symfony completion
+if [ -f ~/.symfony-completion.bash ]; then
+    source ~/.symfony-completion.bash
+fi
+
+# Source brew completion
+if [ -f ~/.brew-completion.bash ]; then
+    source ~/.brew-completion.bash
+fi
+
+# Aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+####################
+# Prompt colors
+####################
+export CLICOLOR=1
+#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+# Note that these _could_ have differing results if being used along with iTerm2
+export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+
 black=$(tput -Txterm setaf 0)
 red=$(tput -Txterm setaf 1)
 green=$(tput -Txterm setaf 2)
 yellow=$(tput -Txterm setaf 3)
-blue=$(tput -Txterm setaf 4)
+dk_blue=$(tput -Txterm setaf 4)
 pink=$(tput -Txterm setaf 5)
 lt_blue=$(tput -Txterm setaf 6)
 
@@ -70,8 +103,8 @@ bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
 # Nicely formatted terminal prompt
-#export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
-export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$lt_blue\]\w\[$black\]\[$reset\]\[$lt_blue\]$(get_vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
+export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
 
 # TODO Fix this below. It is our new prompt and will replace PS1 above
 #################
@@ -113,30 +146,5 @@ export PS1='\[$bold\]\[$black\][\[$blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$gr
 #export PS1="${prompt_begin}${prompt_user}${sep}${prompt_dir}${sep}${prompt_repo}${sep}${prompt_end}"
 
 # ls colors
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    alias ls="ls -G"
-    export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
-    #export CLICOLOR=1
-    #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-elif [[ "$(uname -s)" == "Linux" ]]; then
-    alias ls='ls --color'
-fi
-
-if [[ -f ~/.bashrc_vagrant && -d /vagrant && $(whoami) == "vagrant" ]]; then
-    . ~/.bashrc_vagrant
-fi
-
-# Aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# If MacVim is installed, use that
-#if [[ -e /usr/bin/mvim || -e /usr/local/bin/mvim || -e /bin/mvim ]]; then
-#    alias vi="mvim $1"
-#fi
-
-export EDITOR=/usr/bin/vim
-export ANDROID_HOME=~/Library/Android/sdk
-
-#screen -ls
+[ "$TERM" = "xterm" ] && TERM="xterm-256color"
+#alias ls='ls --color'
