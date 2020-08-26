@@ -40,4 +40,7 @@ Thumbs.db
 # IDE and related #
 # #################
 .idea
-/*pancoast
+
+# Custom
+/pancoast
+/.pancoast
