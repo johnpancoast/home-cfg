@@ -56,26 +56,31 @@ export ANDROID_HOME=~/Library/Android/sdk
 #
 # macOS CLI tools
 if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
-    source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+    . /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 # manual
 elif [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
+    . ~/.git-completion.bash
 elif [ -f ~/.git-prompt.bash ]; then
-    source ~/.git-prompt.bash
+    . ~/.git-prompt.bash
 elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
+    . /etc/bash_completion
 elif [ -f ~/.bash_git ]; then
-    source ~/.bash_git
+    . ~/.bash_git
 fi
 
 # Source symfony completion
 if [ -f ~/.symfony-completion.bash ]; then
-    source ~/.symfony-completion.bash
+    . ~/.symfony-completion.bash
 fi
 
 # Source brew completion
 if [ -f ~/.brew-completion.bash ]; then
-    source ~/.brew-completion.bash
+    . ~/.brew-completion.bash
+fi
+
+# go
+if [ -f ~/.golangrc ]; then
+    . ~/.golangrc
 fi
 
 # Aliases
