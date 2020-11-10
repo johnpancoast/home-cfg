@@ -23,8 +23,8 @@ has_parent_dir () {
 vcs_name() {
     if [ -d .svn ]; then
         echo "-[svn]";
-#    elif has_parent_dir ".git"; then
-#        echo " ($(__git_ps1 '%s'))";
+    elif has_parent_dir ".git"; then
+        echo " ($(__git_ps1 '%s'))";
     elif has_parent_dir ".hg"; then
         echo " ($(hg branch))"
     fi
@@ -52,16 +52,19 @@ export ANDROID_HOME=~/Library/Android/sdk
 ####################
 
 # Source git completion based on OS
-# TODO Fucking pick an appropriate one for OS... FFS... too much cruft!!
 #
-# macOS CLI tools
-if [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
-    . /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+# We want to source correct bash git completion that includes the __git_ps1
+# variable that shows the branch of the current directory we're in. This seems
+# to be from git-prompt.bash so we seek that first.
+#
 # manual
+if [ -f ~/.git-prompt.bash ]; then
+    . ~/.git-prompt.bash
 elif [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
-elif [ -f ~/.git-prompt.bash ]; then
-    . ~/.git-prompt.bash
+# macOS CLI tools
+elif [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
+    . /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 elif [ -f ~/.bash_git ]; then
@@ -110,8 +113,9 @@ reset=$(tput -Txterm sgr0)
 # Nicely formatted terminal prompt
 #export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
 #export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+
 # No call to vcs_name
-export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
 
 # TODO Fix this below. It is our new prompt and will replace PS1 above
 #################
