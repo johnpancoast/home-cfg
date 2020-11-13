@@ -1,13 +1,12 @@
-
-" johns vimrc...
-"
-
 set background=dark
 colorscheme wood
 
 " use file extensions for syntax highlights
 filetype plugin on
 syntax on
+
+" no compatible for various fixes
+set nocompatible
 
 " tabs to spaces
 set expandtab
@@ -22,33 +21,32 @@ set shiftwidth=4
 " (so you don't have to backspace each space character)
 set softtabstop=4
 
-" autoindent to current position in a block when going to next line
-set autoindent
-
 " line numbers
 set nu
 
-" no compatible
-set nocompatible
+" autoindent to current position in a block when going to next line
+set autoindent
 
 " highlight searches
 set hlsearch
 
-" jump to last line i was on when opening file
+" set visual bell, disable audible error bells
+set visualbell
+set noerrorbells
+
+" jump to last line I was on when opening file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" for phpstorm
-" set visualbell
-set noerrorbells
-
 " osx clipboard copying
+" TODO Review what this does again, leaving enabled for now
 set clipboard=unnamed
 
 " golang
-filetype off
-filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
-filetype plugin indent on
-syntax on
+" TODO Review what this does again, disable for now
+"filetype off
+"filetype plugin indent off
+"set runtimepath+=$GOROOT/misc/vim
+"filetype plugin indent on
+"syntax on
