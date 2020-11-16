@@ -51,6 +51,11 @@ export ANDROID_HOME=~/Library/Android/sdk
 # Sourced files
 ####################
 
+# Source git promot which allows for Git details in promot
+if [ -f ~/.git-prompt.bash ]; then
+    . ~/.git-prompt.bash
+fi
+
 # Source git completion based on OS
 #
 # We want to source correct bash git completion that includes the __git_ps1
@@ -58,9 +63,7 @@ export ANDROID_HOME=~/Library/Android/sdk
 # to be from git-prompt.bash so we seek that first.
 #
 # manual
-if [ -f ~/.git-prompt.bash ]; then
-    . ~/.git-prompt.bash
-elif [ -f ~/.git-completion.bash ]; then
+if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 # macOS CLI tools
 elif [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
