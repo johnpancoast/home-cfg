@@ -1,0 +1,13 @@
+""""""""""""""""""""""""""""
+" John's vimrc for Go
+"
+" This file is included via .vimrc.
+
+" TODO Review why these are/were necessary and/or remove them. For now we can
+" comment them out since they're unnecessary and we set some of these values
+" elsewhere.
+"filetype off
+"filetype plugin indent off
+"set runtimepath+=$GOROOT/misc/vim
+"filetype plugin indent on
+"syntax on

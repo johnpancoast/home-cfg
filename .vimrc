@@ -1,3 +1,9 @@
+""""""""""""""""""""""""""""
+" John's vimrc
+"
+" Includes a general section below that applies to all uses of vim along with
+" possible additional configuration from included vimrc files.
+
 set background=dark
 colorscheme wood
 
@@ -39,14 +45,15 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" osx clipboard copying
-" TODO Review what this does again, leaving enabled for now
-set clipboard=unnamed
+" allow system clipboard and vim yanks to be passed back and forth
+" TODO Install VIM via brew to get a version that's compiled with +clipboard
+" support for this to work.
+set clipboard^=unnamed,unnamedplus
 
-" golang
-" TODO Review what this does again, disable for now
-"filetype off
-"filetype plugin indent off
-"set runtimepath+=$GOROOT/misc/vim
-"filetype plugin indent on
-"syntax on
+""""""""""""""""""""""""""""
+" Includes
+"
+" Use syntax `source [file]` to include a separate vimrc file.
+"
+source ~/.vimrc-jetbrains
+source ~/.vimrc-go

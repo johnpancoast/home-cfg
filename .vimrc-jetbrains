@@ -1,0 +1,19 @@
+""""""""""""""""""""""""""""""""""
+" John's vimrc for Jetbrain's IDEs
+"
+" This file is included via .vimrc.
+"
+" This confguration is specific for Jetbrains IDEs. Note that Jetbrain's loads
+" VIM configuration via the ~/.ideavimrc file which, at the moment, is just
+" symlinked to ~/.vimrc which in turn will include this file and others.
+
+
+" Mappings to allow for `gq` functionality within Jetbrain's IDEs
+"
+" NOTE:
+" Requires the below "Wrap To Column" plugin be installed in Jetbrains.
+" https://plugins.jetbrains.com/plugin/7234-wrap-to-column
+"
+" TODO also add Wrap to Paragraph (dunno difference ATM).
+nmap gq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
+" nmap gqq :action com.andrewbrookins.idea.wrap.WrapAction<CR>
