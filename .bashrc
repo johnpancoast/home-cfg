@@ -65,18 +65,12 @@ export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 # Sourced files
 ####################
 
-# Source git promot which allows for Git details in promot
+# Source git prompt which allows for Git details in prompt
 if [ -f ~/.git-prompt.bash ]; then
     . ~/.git-prompt.bash
 fi
 
 # Source git completion based on OS
-#
-# We want to source correct bash git completion that includes the __git_ps1
-# variable that shows the branch of the current directory we're in. This seems
-# to be from git-prompt.bash so we seek that first.
-#
-# manual
 if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 # macOS CLI tools
@@ -127,14 +121,20 @@ lt_blue=$(tput -Txterm setaf 6)
 bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
-# Nicely formatted terminal prompt
-#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-[\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]]\[\033[0;33m\]$(vcs_name) \[\033[00m\]\[$reset\]\[$reset\]$ '
+######################
+# Terminal prompt, PS1
+######################
+# TODO use this is we upgrade to bash v4 which will allow shorted directory
+# shown in prompt.  For now we just show name of current diretory to keep
+# prompt shorter
+# export PROMPT_DIRTRIM=3
+
+# First line includes the absolute CWD, line below has just the name of current
+# directory to keep prompt shorter
 #export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\W\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
 
-# No call to vcs_name
-export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
-
-# TODO Fix this below. It is our new prompt and will replace PS1 above
+# TODO Fix this below if we can make PS1 cleaner.
 #################
 ## prompt parts #
 #################
