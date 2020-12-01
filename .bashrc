@@ -34,16 +34,6 @@ vcs_name() {
 # Variables
 # PATH, etc
 ####################
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:/usr/local/sbin
-export PATH=$PATH:~/Library/Android/sdk/platform-tools
-export PATH=$PATH:~/Library/Android/sdk/tools
-export PATH=$PATH:~/.symfony/bin
-export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
-export PATH=$PATH:~/bin
-export PATH=$PATH:~/.composer/vendor/bin
-#export PATH=$PATH:$(brew --prefix php@7.1)/bin
-
 export EDITOR=/usr/bin/vim
 export ANDROID_HOME=~/Library/Android/sdk
 
