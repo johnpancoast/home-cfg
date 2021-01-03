@@ -95,10 +95,19 @@ fi
 ####################
 # Prompt colors
 ####################
+# TODO consider moving this section to ~/.bash_profile
 export CLICOLOR=1
+
+# Note that these could have differing results if being used along with iTerm2 (obviously)
+#
+# Use https://geoff.greer.fm/lscolors/ for some possible help
+# TODO Decide. Have saved a few different colors for now...
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-# Note that these _could_ have differing results if being used along with iTerm2
-export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+#export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
+#export LSCOLORS="EHfxcxdxBxegecabagacad"
+#export LSCOLORS="ExGxBxDxCxEgEdxbxggcgd"
+#export LSCOLORS="ExGxBxDxCxExEdxbxxgxax"
+export LSCOLORS="ExGxBxDxCxEgEdxbxggcad"
 
 black=$(tput -Txterm setaf 0)
 red=$(tput -Txterm setaf 1)
@@ -114,6 +123,7 @@ reset=$(tput -Txterm sgr0)
 ######################
 # Terminal prompt, PS1
 ######################
+
 # TODO use this is we upgrade to bash v4 which will allow shorted directory
 # shown in prompt.  For now we just show name of current diretory to keep
 # prompt shorter
