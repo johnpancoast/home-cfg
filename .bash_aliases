@@ -1,25 +1,33 @@
 # my aliases
+alias r="sudo"
+alias rr="sudo su -"
 alias l="ls"
 alias vi="vim"
 alias xx="sudo"
 alias Less="less"
-alias ill="cd ~/sites"
+alias g="git"
+# TODO Review alternative or possibly remove this
 alias mygpg="gpg -c --force-mdc"
-alias cp="cp -i"
-alias mv="mv -i"
+
+# Safely rm, mv, and cpfiles unless we overrride that decision. Obnoxiously, cp
+# doesn't operate like rm and mv in regards to -f overriding -i but there's
+# always the `yes` cmd I guess
 alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias v="vagrant"
 alias sdiff="svn diff|view -"
 alias svn-diff="svn diff|view -"
-alias create-symfony-bootstrap-cache="vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php"
 alias d="docker"
-alias sb="source ~/.bash_profile"
+alias ss="source ~/.bash_profile"
+alias prune-master-branches="git branch --merged master | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d"
+alias prune-develop-branches="git branch --merged develop | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d"
 #alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
+alias git-log="git log --author-date-order"
 
-alias idea_log="~/Library/Logs/IntelliJIdea2016.3/idea.log"
-
-# some mysqldump quickies
+# some mysqldump shortcuts
 alias getdb="mysqldump -u root -p"
 alias getdb-data="mysqldump -c -n -t -u root -p"
 alias getdb-structure="mysqldump -d -u root -p"
