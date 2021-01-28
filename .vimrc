@@ -30,6 +30,9 @@ set softtabstop=4
 " line numbers
 set nu
 
+" show the coordinates where the cursor's at
+set ruler
+
 " autoindent to current position in a block when going to next line
 set autoindent
 
@@ -40,7 +43,7 @@ set hlsearch
 set visualbell
 set noerrorbells
 
-" jump to last line I was on when opening file
+" when opening a file, send the cursor to the last line I was on
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
