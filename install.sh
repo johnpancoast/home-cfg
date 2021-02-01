@@ -3,6 +3,7 @@
 bold=`tput bold`
 normal=`tput sgr0`
 
+# TODO Consider using hardlinks instead.
 echo -e "${bold}Setting up Dot Files for this machine!${normal}\n"
 echo -e "${bold}** This will overwrite files in ~/ **${normal}\n"
 
@@ -20,7 +21,7 @@ cp .bash_profile .bashrc .bash_aliases .gitconfig .gitignore_global .vimrc .idea
 cp -R vim-colorschemes/colors ~/.vim/
 
 #echo "[user]"$'\n\t'"email = $email"$'\n\t'"name = $name"$'\n' >> ~/.gitconfig
-source ~/.bashrc
+source ~/.bash_profile
 
 echo "Finished!"
 
