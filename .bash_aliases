@@ -1,45 +1,48 @@
+# This is my aliases file. There are many like it but this one is
+# mine.
+
 # Common, basic aliases
 #
-# Don't add aliases you won't use if you're just going to tab the cmd out
-# easily anyway. Other things like vagrant and docker have alternative commands
-# starting with va* and do*, respectively, so those have at least some merit,
-# ignoring the fact that you could just type vag[tab] or doc[tab] but whatever...
-# aliases are for me, pinche pendejos...
-alias ll="ls -lah"
-alias ..="cd .."
-alias vi="vim"
+# Don't add aliases you won't use if you're just going to tab the cmd
+# out easily anyway. Other things like vagrant and docker have
+# alternative commands starting with va* and do*, respectively, so
+# those have at least some merit, ignoring the fact that you could
+# just type vag[tab] or doc[tab] but whatever...  my aliases =P
+alias ll="ls -lah";
+alias ..="cd ..";
+alias vi="vim";
 # For me common fat fingers
-alias Less="less"
-alias v="vagrant"
-alias d="docker"
+alias Less="less";
+alias v="vagrant";
+alias d="docker";
 
 # Safely rm, mv, and cp files unless we overrride that decision. Obnoxiously, cp
 # doesn't operate like rm and mv in regards to -f overriding -i but there's
 # always the `yes` cmd I guess
-alias rm="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
+alias rm="rm -i";
+alias mv="mv -i";
+alias cp="cp -i";
 
 # TODO Consider just using brew to install linux' tree =)
-alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'";
 
 # Simply left for a reminder of how much better things are these days
-alias sdiff="svn diff|view -"
-alias svn-diff="svn diff|view -"
+alias sdiff="svn diff|view -";
+alias svn-diff="svn diff|view -";
 
 # Common git aliases
-alias prune-master-branches="git branch --merged master | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d"
-alias prune-develop-branches="git branch --merged develop | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d"
-alias git-log="git log --author-date-order"
+alias prune-master-branches="git branch --merged master | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d";
+alias prune-develop-branches="git branch --merged develop | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d";
+alias git-log="git log --author-date-order";
 
 # Common docker aliases
 # TODO are we using this or what??
-#alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)"
+#alias docker-cleanup="docker rm $(docker ps -aq); docker rmi $(docker images --filter dangling=true --quiet)";
 
 # Mysqldump shortcuts
-alias getdb="mysqldump -u root -p"
-alias getdb-data="mysqldump -c -n -t -u root -p"
-alias getdb-structure="mysqldump -d -u root -p"
+alias getdb="mysqldump -u root -p";
+alias getdb-data="mysqldump -c -n -t -u root -p";
+alias getdb-structure="mysqldump -d -u root -p";
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
