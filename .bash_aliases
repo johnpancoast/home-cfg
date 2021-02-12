@@ -11,8 +11,6 @@
 alias ll="ls -lah";
 alias ..="cd ..";
 alias vi="vim";
-# For me common fat fingers
-alias Less="less";
 alias v="vagrant";
 alias d="docker";
 
@@ -22,9 +20,6 @@ alias d="docker";
 alias rm="rm -i";
 alias mv="mv -i";
 alias cp="cp -i";
-
-# TODO Consider just using brew to install linux' tree =)
-alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'";
 
 # Simply left for a reminder of how much better things are these days
 alias sdiff="svn diff|view -";
@@ -60,9 +55,8 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# read a private bash alias if exists
-# useful when aliases exist for things which shouldn't
-# be in public repo
+# read a private bash alias file which is useful in cases where this aliases
+# file is in a dotfiles repo and we have other private aliases.
 if [ -f ~/.bash_aliases_priv ]; then
     . ~/.bash_aliases_priv
 fi
