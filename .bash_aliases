@@ -14,6 +14,31 @@ alias vi="vim";
 alias v="vagrant";
 alias d="docker";
 
+# Date and time in ISO 8601-1:2019 (proper) with the now explicitly required
+# 'T' separating date and time; in extended separation format. No timezone.
+alias date_i="date '+%FT%T'"
+
+# Date and time in ISO 8601:2004 allowing a space (or anything) between date
+# and time similar to some (perhaps older?) DB datetime formats. No timezone.
+alias date_ii="date '+%F %T'"
+
+# Date and time in ISO 8601 in basic format, i.e., no separators. No timezone.
+# This can be useful for (file) names. Note the standard allows decimals
+# following the smallest time value (seconds here) so something like
+# $(date_ib).01 can be used for custom needs of the same date time.
+alias date_ib="date '+%Y%m%d%H%M%S'"
+
+# Date and time; same as date_ib but with an underscore separating date and
+# time.
+alias date_iu="date '+%Y%m%d_%H%M%S'"
+
+# Date and time; same as date_iu but with hyphens separating date values.
+alias date_iuu="date '+%Y-%m-%d_%H%M%S'"
+
+# TODO Add similar date time aliases as the above 'date_*' aliases that include
+#      TZs and others that output date time in UTC. See `man strftime` for date
+#      formats.
+
 # Safely rm, mv, and cp files unless we overrride that decision. Obnoxiously, cp
 # doesn't operate like rm and mv in regards to -f overriding -i but there's
 # always the `yes` cmd I guess
