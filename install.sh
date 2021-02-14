@@ -3,7 +3,6 @@
 bold=`tput bold`
 normal=`tput sgr0`
 
-# TODO Consider using hardlinks instead.
 echo -e "${bold}Setting up Dot Files for this machine!${normal}\n"
 echo -e "${bold}** This will overwrite files in ~/ **${normal}\n"
 
@@ -15,9 +14,11 @@ git submodule update
 php vim-php-syntax/update_syntax.php
 echo "PHP Syntax updated based on installed packages..."
 
+# TODO Consider using hardlinks instead.
 # Copy the required files to the home directory
 echo -n "Copying dotfiles into home directory... "
 cp .bash_profile .bashrc .bash_aliases .gitconfig .gitignore_global .vimrc .ideavimrc .vim .git-prompt.bash .git-completion.bash .symfony-completion.bash .screenrc ~/
+
 cp -R vim-colorschemes/colors ~/.vim/
 
 #echo "[user]"$'\n\t'"email = $email"$'\n\t'"name = $name"$'\n' >> ~/.gitconfig
