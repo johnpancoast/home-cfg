@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+#
+# Combine separate *.alda files from a directory into one file and play it.
+# This allows music to be created in separate files and then all played at
+# once, as-if composing for different instruments then hearing the score.
+# Th_can be_ convenient when you want to break instruments into multi-files and
+# work that way and then combine everything rather than moving around the same
+# file. This works due to alda's nice handling of different instruments
+# regardless of order. 
+#
+# For info on alda, see: https://github.com/alda-lang/alda.
+#
+# TODO Break some of this into a create-alda-score script and source that from
+# here to play that generated file.
+
+####################
+# INIT
+script="$0";
+
+# TODO Use getopts and check for dir (as per my usual laziness fixing). For now
+#      the realpath will fail out a non-existent directory
+#
+# TODO Add options after adding getops, for things like play time and
+#      automatically shutting down alda's server.
+#
+# TODO Add option for score file path.
+dir="$(realpath $1)";
+
+cmd_alda="/usr/local/bin/alda"
+# see alda -h
+alda_worker_count="2";
+datei="$(date '+%Y-%m-%d_%H%M%S')";
+# TODO see script's first todo on how to allow easier behavior.
+score_file_name="score.${datei}.alda";
+score_file="${dir}/${score_file_name}";
+lock_file="${dir}/.score.alda.lock";
+
+# Error messages
+msg_main_error=$(cat <<EOF
+Must pass a directory as the first argument, the directory must exist, and
+little will happen without *.alda files in the dir to combine into a score.
+Exiting...
+EOF);
+
+####################
+# FUNCTIONS
+
+is_alda_up()
+{
+    if [[ $(${cmd_alda} status | grep -o "Server down") == "Server down" ]]; then
+        return false;
+    else
+        return true;
+    fi
+}
+
+alda_stop()
+{
+    ${cmd_alda} stop;
+}
+
+alda_up()
+{
+    ${cmd_alda} -q -w ${alda_worker_count} up;
+}
+
+alda_down()
+{
+    ${cmd_alda} down;
+}
+
+check_sanity()
+{
+    if [[ "x${dir}" == "x" ]]; then
+        echo ${msg_main_error};
+        exit;
+    fi
+
+    # Only work during a valid lock
+    if [[ -f "${lock_file}" ]]; then
+        echo "Lock file exists at ${lock_file}. Remove it if safe.";
+        echo "Exiting...";
+        exit
+    fi
+
+    if [[ ! -d ${dir} || $(find ${dir} -name "*.alda") = "" ]]; then
+        echo ${msg_main_error};
+        exit;
+    fi
+}
+
+create_alda_score()
+{
+    # for the off chance that the same score file exists
+    for i in $(seq 1 1000); do
+        if [[ -f "${score_file}" ]]; then
+            mv ${score_file} ${score_file}.${i};
+            break;
+        fi
+    done
+
+    # if score still exists then just fail here...
+    if [[ -f "${score_file}" ]]; then
+        echo "Score file exists, defying all logic! Exiting...";
+        exit;
+    fi
+
+    # Create the alda score
+    echo -e "# This is an auto-generated alda score file.\n#" >> ${score_file}
+    echo -e "# It was created using the following command:\n# ${script} ${dir}\n#" >> ${score_file};
+    echo -e "# It was generated at:\n# ${datei}\n\n" >> ${score_file};
+
+    for alda_file in $(find ${dir} -name "*.alda"); do
+        # skip score file, accounting for old score file names
+        if [[ "${alda_file}" == "${score_file}" || "${alda_file}" == "alda-score.alda" ]]; then
+            continue;
+        fi
+
+        echo    "#######################################" >> ${score_file};
+        echo -e "# File/insrument:\n# ${alda_file}\n" >> ${score_file};
+
+        cat ${alda_file} >> ${score_file};
+        echo -e "\n" >> ${score_file};
+    done
+}
+
+alda_play_score()
+{
+    ${cmd_alda} -q play --file ${score_file};
+}
+
+###################
+# MAIN
+check_sanity;
+
+# use lock file for this dir
+echo "Creating lock file.";
+touch ${lock_file};
+
+echo "Creating score.";
+create_alda_score;
+
+echo "Removing lock file.";
+rm ${lock_file};
+
+echo "Starting alda server.";
+alda_up;
+
+echo "Playing score.";
+alda_play_score;
+
+echo -e "\nIMPORTANT!\n"
+echo    "You can stop playback with 'alda stop' but...";
+echo    "Note that the alda server is still running.";
+echo    "You must stop this manually with 'alda down'.";
+echo    "Eventually the script will allow play time options";
+echo    "and automatic shutdown of the server afterward.";
