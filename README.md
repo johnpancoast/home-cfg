@@ -14,8 +14,8 @@ amongst whatever else...
 * Create installation script for anything that needs to be downloaded.
   git-prompt.sh may be a candidate although for now it seems to be getting
   copied from here (not sure how well that'll work between version but works
-  for now.
+  for now).
 
-* Honestly, this whole repo could use some work. It was originally forked from
-  a co-worker, I made some adjustments, and over time those adjustments have
-  gotten ugly.
+* Honestly, this whole repo could use some clean up. It was originally forked
+  from a co-worker, I made some minor adjustments, and over time those
+  adjustments have gotten uglier than intended.
