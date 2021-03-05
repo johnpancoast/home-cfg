@@ -7,12 +7,17 @@
 # out easily anyway. Other things like vagrant and docker have
 # alternative commands starting with va* and do*, respectively, so
 # those have at least some merit, ignoring the fact that you could
-# just type vag[tab] or doc[tab] but whatever...  my aliases =P
-alias ll="ls -lah";
+# just type vag[tab] or doc[tab] but whatever...
+alias l="ls -lahF";
+alias ll="l"
 alias ..="cd ..";
 alias vi="vim";
 alias v="vagrant";
 alias d="docker";
+
+# TODO Honestly would rather move these to shell/bash scripts so that
+#      they can output for a different input time to date, i.e., so they can
+#      either format the present date and/or fdifferent dates.
 
 # Date and time in ISO 8601-1:2019 (proper) with the now explicitly required
 # 'T' separating date and time; in extended separation format. No timezone.
