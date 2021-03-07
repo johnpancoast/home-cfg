@@ -11,6 +11,7 @@ alias ..="cd ..";
 alias vi="vim";
 alias v="vagrant";
 alias d="docker";
+alias h="history";
 
 # TODO Honestly would rather move these to shell/bash scripts so that
 #      they can output for a different input time to date, i.e., so they can
