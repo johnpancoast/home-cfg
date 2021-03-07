@@ -1,6 +1,3 @@
-# This is my aliases file. There are many like it but this one is
-# mine.
-
 # Common, basic aliases
 #
 # Don't add aliases you won't use if you're just going to tab the cmd
