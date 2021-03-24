@@ -17,5 +17,6 @@ amongst whatever else...
   for now).
 
 * Honestly, this whole repo could use some clean up. It was originally forked
-  from a co-worker, I made some minor adjustments, and over time those
+  from a [co-worker](https://github.com/k-k/dotfiles) from *many* years ago, I
+  have since made some major, some minor adjustments, and over time those
   adjustments have gotten uglier than intended.
