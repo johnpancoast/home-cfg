@@ -5,42 +5,49 @@
 # alternative commands starting with va* and do*, respectively, so
 # those have at least some merit, ignoring the fact that you could
 # just type vag[tab] or doc[tab] but whatever...
-alias l="ls -lahF";
-alias ll="l"
+alias l="ls -a";
+alias ll="ls -alhF";
 alias ..="cd ..";
 alias vi="vim";
 alias v="vagrant";
 alias d="docker";
 alias h="history";
 
-# TODO Honestly would rather move these to shell/bash scripts so that
-#      they can output for a different input time to date, i.e., so they can
-#      either format the present date and/or fdifferent dates.
+# TODO Honestly would rather move the below date aliases to shell/bash scripts
+#      so that they can output for a different input time to date, i.e., so
+#      they can either format the present date and/or different dates.
+
+# TODO Add similar date time aliases (or options/args) as the above 'date_*'
+#      aliases that include TZs and others that output date time in UTC. See
+#      `man strftime` for date formats.
+#
+# TODO THIS NEEDS TO BE MADE INTO A COMMAND SOONER THAN LATER!!! But for now,
+#      I'm renaming all "date" aliases to "datetime" and adding some "date"
+#      aliases for date only. I'm adding one more alias
+
+# Just the date in ISO 8601
+alias date_i="date '+%F'"
 
 # Date and time in ISO 8601-1:2019 (proper) with the now explicitly required
 # 'T' separating date and time; in extended separation format. No timezone.
-alias date_i="date '+%FT%T'"
+alias datetime_i="date '+%FT%T'"
 
 # Date and time in ISO 8601:2004 allowing a space (or anything) between date
 # and time similar to some (perhaps older?) DB datetime formats. No timezone.
-alias date_ii="date '+%F %T'"
+alias datetime_ii="date '+%F %T'"
 
 # Date and time in ISO 8601 in basic format, i.e., no separators. No timezone.
 # This can be useful for (file) names. Note the standard allows decimals
 # following the smallest time value (seconds here) so something like
-# $(date_ib).01 can be used for custom needs of the same date time.
-alias date_ib="date '+%Y%m%d%H%M%S'"
+# $(datetime_ib).01 can be used for custom needs of the same date time.
+alias datetime_ib="date '+%Y%m%d%H%M%S'"
 
-# Date and time; same as date_ib but with an underscore separating date and
+# Date and time; same as datetime_ib but with an underscore separating date and
 # time.
-alias date_iu="date '+%Y%m%d_%H%M%S'"
+alias datetime_iu="date '+%Y%m%d_%H%M%S'"
 
-# Date and time; same as date_iu but with hyphens separating date values.
-alias date_iuu="date '+%Y-%m-%d_%H%M%S'"
-
-# TODO Add similar date time aliases as the above 'date_*' aliases that include
-#      TZs and others that output date time in UTC. See `man strftime` for date
-#      formats.
+# Date and time; same as datetime_iu but with hyphens separating date values.
+alias datetime_iuu="date '+%Y-%m-%d_%H%M%S'"
 
 # Safely rm, mv, and cp files unless we overrride that decision. Obnoxiously, cp
 # doesn't operate like rm and mv in regards to -f overriding -i but there's
