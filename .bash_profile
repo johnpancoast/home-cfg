@@ -26,21 +26,24 @@ paths=(
     "/usr/local/sbin"
 
     # android dev
-    "~/Library/Android/sdk/platform-tools"
-    "~/Library/Android/sdk/tools"
+    #"~/Library/Android/sdk/platform-tools"
+    #"~/Library/Android/sdk/tools"
 
     # symfony's bin
-    "~/.symfony/bin"
+    #"~/.symfony/bin"
 
     # TODO still needed?
     #"/usr/local/opt/coreutils/libexec/gnubin"
 
     # composer bin
-    "~/.composer/vendor/bin"
+    #"~/.composer/vendor/bin"
 
     # php bin
     # TODO still needed?
     #"$(brew --prefix php@7.1)/bin"
+
+    # go bin
+    "~/go/bin"
 );
 
 for i in ${paths[@]}; do
