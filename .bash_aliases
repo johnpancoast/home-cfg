@@ -26,28 +26,28 @@ alias h="history";
 #      aliases for date only. I'm adding one more alias
 
 # Just the date in ISO 8601
-alias date_i="date '+%F'"
+alias date_i="date -j '+%F'"
 
 # Date and time in ISO 8601-1:2019 (proper) with the now explicitly required
 # 'T' separating date and time; in extended separation format. No timezone.
-alias datetime_i="date '+%FT%T'"
+alias datetime_i="date -j '+%FT%T'"
 
 # Date and time in ISO 8601:2004 allowing a space (or anything) between date
 # and time similar to some (perhaps older?) DB datetime formats. No timezone.
-alias datetime_ii="date '+%F %T'"
+alias datetime_ii="date -j '+%F %T'"
 
 # Date and time in ISO 8601 in basic format, i.e., no separators. No timezone.
 # This can be useful for (file) names. Note the standard allows decimals
 # following the smallest time value (seconds here) so something like
 # $(datetime_ib).01 can be used for custom needs of the same date time.
-alias datetime_ib="date '+%Y%m%d%H%M%S'"
+alias datetime_ib="date -j '+%Y%m%d%H%M%S'"
 
 # Date and time; same as datetime_ib but with an underscore separating date and
 # time.
-alias datetime_iu="date '+%Y%m%d_%H%M%S'"
+alias datetime_iu="date -j '+%Y%m%d_%H%M%S'"
 
 # Date and time; same as datetime_iu but with hyphens separating date values.
-alias datetime_iuu="date '+%Y-%m-%d_%H%M%S'"
+alias datetime_iuu="date -j '+%Y-%m-%d_%H%M%S'"
 
 # Safely rm, mv, and cp files unless we overrride that decision. Obnoxiously, cp
 # doesn't operate like rm and mv in regards to -f overriding -i but there's
