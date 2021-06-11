@@ -87,6 +87,11 @@ if [ -f ~/.golangrc ]; then
     . ~/.golangrc
 fi
 
+# Priv bash file (in the case that this file is included in a repo and user has non-public uses).
+if [ -f ~/.bashrc_priv ]; then
+    . ~/.bashrc_priv
+fi
+
 # Aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
