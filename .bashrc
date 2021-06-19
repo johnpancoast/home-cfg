@@ -88,7 +88,9 @@ if [ -f ~/.golangrc ]; then
     . ~/.golangrc
 fi
 
-# Priv bash file (in the case that this file is included in a repo and user has non-public uses).
+# Priv bash file for cases where this file is included in a dotfiles type of
+# repo and when the file may be distributed while still being updateable in the
+# repo. Just makes it easier to separate this from what may be public.
 if [ -f ~/.bashrc_priv ]; then
     . ~/.bashrc_priv
 fi
