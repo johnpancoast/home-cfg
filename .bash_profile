@@ -1,11 +1,11 @@
-[[ -s ~/.bashrc ]] && source ~/.bashrc
-
-######################################
-# Commands that should only run once
+########################################
+# Things that should only run once
 # in an interactive login shell
 #
 # PATH, etc
-######################################
+########################################
+
+[[ -s ~/.bashrc ]] && source ~/.bashrc
 
 # PATH
 #
@@ -15,8 +15,6 @@
 #
 # Note much of PATH has already been set by certain systems (with
 # /etc/environment, for example).
-#
-# TODO confirm that PATH on linux systems includes paths similarly to macOS.
 paths=(
     # personal bin. place before others so personal commands can override
     # others like /usr/local/bin comes before /usr/bin
