@@ -7,17 +7,13 @@
 
 [[ -s ~/.bashrc ]] && source ~/.bashrc
 
-# PATH
+# PATH - array of paths to be added to PATH env variable
 #
-# Simply add to paths array
-
-# array of paths to be added to PATH
-#
-# Note much of PATH has already been set by certain systems (with
+# Much of PATH has already been set by certain systems (like with
 # /etc/environment, for example).
 paths=(
     # personal bin. place before others so personal commands can override
-    # others like /usr/local/bin comes before /usr/bin
+    # others similarly to /usr/local/bin commands overriding /usr/bin commands.
     "~/bin"
 
     # for homebrew
