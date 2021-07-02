@@ -132,15 +132,19 @@ reset=$(tput -Txterm sgr0)
 # Terminal prompt, PS1
 ######################
 
-# TODO use this is we upgrade to bash v4 which will allow shorted directory
-# shown in prompt.  For now we just show name of current diretory to keep
-# prompt shorter
-# export PROMPT_DIRTRIM=3
+# Usable in bash >= 4.
+export PROMPT_DIRTRIM=4
 
-# First line includes the absolute CWD, line below has just the name of current directory
-# to keep prompt shorter
-#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
-export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\W\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+# Includes the absolute directory of the current PWD by using bash prompt \w symbol
+export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+
+# XXX - Note that these are no longer necessary due to now being on bash v4 and being able to use the PROMPT_DIRTRIM
+# variable. Leaving these for reference for now but remove them when deemed unnecessary.
+# Includes only the basedir of the directory of the current PWD by using bash prompt \w symbol
+#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\W\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+
+# Includes the absolute, but cut, directory of the current PWD using local print_pwd_short() function.
+#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]$(print_pwd_short)\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
 
 # TODO Fix this below if we can make PS1 cleaner.
 #################
