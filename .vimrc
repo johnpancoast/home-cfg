@@ -51,7 +51,7 @@ endif
 " allow system clipboard and vim yanks to be passed back and forth
 " TODO Install VIM via brew to get a version that's compiled with +clipboard
 " support for this to work.
-set clipboard^=unnamed,unnamedplus
+" set clipboard^=unnamed,unnamedplus
 
 """"""""""""""""""""""""""""
 " Includes
