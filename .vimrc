@@ -39,9 +39,11 @@ set autoindent
 " highlight searches
 set hlsearch
 
-" set visual bell, disable audible error bells
-set visualbell
-set noerrorbells
+" turn off error beep/flash
+set visualbell t_vb=
+
+" turn off visual bell
+set novisualbell
 
 " when opening a file, send the cursor to the last line I was on
 if has("autocmd")
