@@ -56,6 +56,10 @@ alias rm="rm -i";
 alias mv="mv -i";
 alias cp="cp -i";
 
+# docker aws
+alias aws="docker run --rm -it amazon/aws-cli";
+alias paws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli";
+
 # Simply left for a reminder of how much better things are these days
 alias sdiff="svn diff|view -";
 alias svn-diff="svn diff|view -";
