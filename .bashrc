@@ -1,9 +1,10 @@
 # TODO Clean all of this up or break out into separate files. Put things into functions.
 # TODO Move appropriate sections to .profile or .bash_profile, for example PATH.
 
-####################
+#
 # Functions
-####################
+#
+
 has_parent_dir () {
     # Utility function so we can test for things like .git/.hg without firing up a
     # separate process
@@ -30,17 +31,18 @@ vcs_name() {
     fi
 }
 
-####################
-# Variables
-# PATH, etc
-####################
+#
+# Common env variables
+#
 export EDITOR=/usr/bin/vim
 export ANDROID_HOME=~/Library/Android/sdk
 
+#
 # Less additions
 #
 # TODO the below won't work until we're using gnu less.
 # export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
+#
 
 # Set colors for less. Borrowed from:
 # https://wiki.archlinux.org/index.php/Color_output_in_console#less .
@@ -52,19 +54,18 @@ export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
 
-####################
+#
 # Sourced files
-####################
+#
 
-# Source git prompt which allows for Git details in prompt
+# Git prompt
 if [ -f ~/.git-prompt.bash ]; then
     . ~/.git-prompt.bash
 fi
 
-# Source git completion based on OS
+# Git completion
 if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
-# macOS CLI tools
 elif [ -f /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash ]; then
     . /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 elif [ -f /etc/bash_completion ]; then
@@ -73,12 +74,12 @@ elif [ -f ~/.bash_git ]; then
     . ~/.bash_git
 fi
 
-# Source symfony completion
+# Symfony
 if [ -f ~/.symfony-completion.bash ]; then
     . ~/.symfony-completion.bash
 fi
 
-# Source brew completion
+# Homebrew
 if [ -f ~/.brew-completion.bash ]; then
     . ~/.brew-completion.bash
 fi
@@ -89,8 +90,7 @@ if [ -f ~/.golangrc ]; then
 fi
 
 # Priv bash file for cases where this file is included in a dotfiles type of
-# repo and when the file may be distributed while still being updateable in the
-# repo. Just makes it easier to separate this from what may be public.
+# repo.
 if [ -f ~/.bashrc_priv ]; then
     . ~/.bashrc_priv
 fi
@@ -100,9 +100,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-####################
+#
 # Prompt colors
-####################
+#
 # TODO consider moving this section to ~/.bash_profile
 export CLICOLOR=1
 
@@ -128,9 +128,9 @@ lt_blue=$(tput -Txterm setaf 6)
 bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
-######################
+#
 # Terminal prompt, PS1
-######################
+#
 
 # Usable in bash >= v4.
 export PROMPT_DIRTRIM=5

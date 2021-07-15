@@ -17,7 +17,7 @@ alias h="history";
 #      so that they can output for a different input time to date, i.e., so
 #      they can either format the present date and/or different dates.
 
-# TODO Add similar date time aliases (or options/args) as the above 'date_*'
+# TODO Add similar date time aliases (or options/args) as the below 'date_*'
 #      aliases that include TZs and others that output date time in UTC. See
 #      `man strftime` for date formats.
 #
@@ -94,8 +94,8 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# read a private bash alias file which is useful in cases where this aliases
-# file is in a dotfiles repo and we have other private aliases.
+# Priv bash file for cases where this file is included in a dotfiles type of
+# repo.
 if [ -f ~/.bash_aliases_priv ]; then
     . ~/.bash_aliases_priv
 fi
