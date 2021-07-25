@@ -12,6 +12,7 @@ alias vi="vim";
 alias v="vagrant";
 alias d="docker";
 alias h="history";
+alias curls="curl -sS"
 
 # TODO Honestly would rather move the below date aliases to shell/bash scripts
 #      so that they can output for a different input time to date, i.e., so
