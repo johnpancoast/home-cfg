@@ -66,6 +66,7 @@ alias sdiff="svn diff|view -";
 alias svn-diff="svn diff|view -";
 
 # Common git aliases
+alias prune-main-branches="git branch --merged main | grep -v '^ *main$' | grep -v '^ *develop$' | xargs git branch -d";
 alias prune-master-branches="git branch --merged master | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d";
 alias prune-develop-branches="git branch --merged develop | grep -v '^ *master$' | grep -v '^ *develop$' | xargs git branch -d";
 alias git-log="git log --author-date-order";
