@@ -61,6 +61,11 @@ alias cp="cp -i";
 alias aws="docker run --rm -it amazon/aws-cli";
 alias paws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli";
 
+# get current ip from ifconfig
+# First aliases requires GETIP_LOOKUP_INTERFACE be set in envoronment
+alias getip="ifconfig | grep ${GETIP_LOOKUP_INTERFACE} -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
+alias getip_en0="ifconfig | grep en0 -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
+
 # Simply left for a reminder of how much better things are these days
 alias sdiff="svn diff|view -";
 alias svn-diff="svn diff|view -";
