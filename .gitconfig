@@ -13,7 +13,7 @@
 	helper = osxkeychain
 [user]
 	name = John Pancoast
-	email = johnpancoaster@gmail.com
+	email = johnpancoast.tech@gmail.com
 [push]
 	default = simple
 [difftool]
@@ -27,3 +27,10 @@
 [alias]
 	dt = difftool
 	df = difftool
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
