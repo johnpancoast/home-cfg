@@ -6,7 +6,7 @@
 # those have at least some merit, ignoring the fact that you could
 # just type vag[tab] or doc[tab] but whatever...
 alias l="ls -a";
-alias ll="ls -alhF";
+alias ll="ls -alh";
 alias ..="cd ..";
 alias vi="vim";
 alias v="vagrant";
