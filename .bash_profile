@@ -38,6 +38,9 @@ paths=(
 
     # go bin
     "~/go/bin"
+
+    # .net
+    "/usr/local/share/dotnet/dotnet"
 );
 
 for i in ${paths[@]}; do
