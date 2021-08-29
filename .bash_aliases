@@ -1,10 +1,10 @@
+#
 # Common, basic aliases
 #
-# Don't add aliases you won't use if you're just going to tab the cmd
-# out easily anyway. Other things like vagrant and docker have
-# alternative commands starting with va* and do*, respectively, so
-# those have at least some merit, ignoring the fact that you could
-# just type vag[tab] or doc[tab] but whatever...
+# Don't add aliases you won't use if you're just going to tab the cmd out
+# easily anyway. Sometimes aliases get added that never get used so just don't
+# =P. And to all the hipsters who'll read this, z shell schmee shell, I'm fine
+# with bash!
 alias l="ls -a";
 alias ll="ls -alh";
 alias ..="cd ..";
@@ -14,18 +14,17 @@ alias d="docker";
 alias h="history";
 alias curls="curl -sS"
 
-# TODO Honestly would rather move the below date aliases to shell/bash scripts
-#      so that they can output for a different input time to date, i.e., so
-#      they can either format the present date and/or different dates.
-
+#
+# Dates
+#
+# TODO Change below date aliases to use functions (or move them to scripts) so
+# that they can accept input. For example, perhaps different date and time
+# input or flags to print epoch, etc.
+#
 # TODO Add similar date time aliases (or options/args) as the below 'date_*'
 #      aliases that include TZs and others that output date time in UTC. See
 #      `man strftime` for date formats.
 #
-# TODO THIS NEEDS TO BE MADE INTO A COMMAND SOONER THAN LATER!!! But for now,
-#      I'm renaming all "date" aliases to "datetime" and adding some "date"
-#      aliases for date only. I'm adding one more alias
-
 # Just the date in ISO 8601
 alias date_i="date -j '+%F'"
 
