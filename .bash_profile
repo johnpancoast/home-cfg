@@ -36,15 +36,18 @@ paths=(
     # TODO still needed?
     #"$(brew --prefix php@7.1)/bin"
 
-    # go bin
+    # go
     "~/go/bin"
 
     # .net
-    "/usr/local/share/dotnet/dotnet"
+    "/usr/local/share/dotnet"
+
+    # flutter
+    "~/Computing/software/flutter/bin"
 );
 
 for i in ${paths[@]}; do
-    PATH=$PATH:$i;
+    PATH="$PATH:$i";
 done
 
 export PATH;
