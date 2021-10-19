@@ -16,6 +16,9 @@ amongst whatever else...
   copied from here (not sure how well that'll work between version but works
   for now).
 
+* Move standard dot files into a `dotfiles` directory to separate them from
+  things like the `.gitmodules` file which should not be copied like the rest.
+
 * Honestly, this whole repo could use some clean up. It was originally forked
   from a [co-worker](https://github.com/k-k/dotfiles) from *many* years ago, I
   have since made some major, some minor adjustments, and over time those
