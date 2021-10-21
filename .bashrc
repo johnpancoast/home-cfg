@@ -133,10 +133,10 @@ reset=$(tput -Txterm sgr0)
 #
 
 # Usable in bash >= v4.
-export PROMPT_DIRTRIM=5
+export PROMPT_DIRTRIM=4;
 
 # Includes the absolute directory of the current PWD by using bash prompt \w symbol
-export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] ';
 
 # XXX - Note that these are no longer necessary due to now being on bash v4 and being able to use the PROMPT_DIRTRIM
 # variable. Leaving these for reference for now but remove them when deemed unnecessary.
