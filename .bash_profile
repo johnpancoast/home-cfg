@@ -29,8 +29,8 @@ paths=(
     # TODO still needed?
     #"/usr/local/opt/coreutils/libexec/gnubin"
 
-    # composer bin
-    #"~/.composer/vendor/bin"
+    # composer global vendor bin
+    "~/.composer/vendor/bin"
 
     # php bin
     # TODO still needed?
