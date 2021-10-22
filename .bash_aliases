@@ -101,8 +101,8 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Priv bash file for cases where this file is included in a dotfiles type of
-# repo.
+# Private bash aliases file which is useful for machine specific aliases and/or
+# aliases that don't belong in this file or the repo this file lives in.
 if [ -f ~/.bash_aliases_priv ]; then
     . ~/.bash_aliases_priv
 fi
