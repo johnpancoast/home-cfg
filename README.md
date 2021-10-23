@@ -8,6 +8,8 @@ amongst whatever else...
 ... docs soon.
 
 # TODO
+* I think the git submodules are mis-configured. Look into that.
+
 * Some of the files in this repo should be moved to their own repo and brought
   in via git submodules.
 
