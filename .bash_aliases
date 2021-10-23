@@ -101,8 +101,58 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Private bash aliases file which is useful for machine specific aliases and/or
-# aliases that don't belong in this file or the repo this file lives in.
+#
+# $comon_dirs - Common directories
+#
+# Commonly accessed directories and their names in an associative array where
+# each key is an underscored directory name and each vaue is a directory's
+# path. These directories will be used to create shortcut'ish commands and/or
+# aliases.
+#
+# To add a common directory to this array, add a key/value pair for the
+# directory, where the key is an underscored directory name and where the value
+# is the directory's path.
+#
+# -- Current features for elemenets in the `$common_dirs` array --
+#
+#    For example's sake, assume our code has the following line defining a "code" directory name with a value of a path "~/my/code".
+#
+#       $common_dirs[code]="~/my/code";
+#
+# * The `$common_dirs` array will be in scope, i.e., a `${common_dirs[code]}`
+# variable will be available. But even better...
+#
+# * For each `{key}` (directory name) in the `$common_dirs` array, a variable
+# named `$d_{key}` will be created with the directory path as the value, i.e.,
+# ${d_code} will exist with a value of `~/my/code`. The `$d_` prefix of these
+# variables denote that they're a "(d)irectory".
+#
+# * For each `{key}` (directory name) in the `$common_dirs` array, an alias
+# named `c-{key}` will be created (with dashes instead of underscores) which
+# will `cd` to the directory value, i.e., an alias like the following will be
+# created: `alias c-code="cd ${d_code}";`.  The `c-` prefix of these aliases
+# denote that they "(c)hange directory".
+declare -A common_dirs;
+
+# Private bash aliases file which is not included in this repository. This is
+# useful for machine specific aliases and/or aliases that don't belong in this
+# file or the repo this file lives in.
+#
+# Note that the `$common_dirs` array can also be added to from this file.
 if [ -f ~/.bash_aliases_priv ]; then
     . ~/.bash_aliases_priv
 fi
+
+# Loop any defined `$common_dirs` elements. See docs above where $common_dirs
+# array is declared.
+for dir_name in ${!common_dirs[@]}; do
+    dir_value="${common_dirs[$dir_name]}";
+
+    # declare our variable(s) to export. Name variable(s) using underscore
+    # separators (which are assumed here at present).
+    declare d_${dir_name}="${dir_value}";
+    export "d_${dir_name}";
+
+    # Create alias(es) to cd to dir. Name alias(es) using dash separators.
+    alias "c-${dir_name//_/-}"="cd ${dir_value}";
+done
