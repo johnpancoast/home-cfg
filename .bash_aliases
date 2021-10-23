@@ -18,36 +18,48 @@ alias curls="curl -sS"
 # Dates
 #
 # TODO Change below date aliases to use functions (or move them to scripts) so
-# that they can accept input. For example, perhaps different date and time
-# input or flags to print epoch, etc.
+#      that they can accept input. For example, perhaps different date and time
+#      input or flags to print epoch, etc.
 #
 # TODO Add similar date time aliases (or options/args) as the below 'date_*'
 #      aliases that include TZs and others that output date time in UTC. See
 #      `man strftime` for date formats.
 #
-# Just the date in ISO 8601
+# TODO (in progress) Add aliases with dashes instead of underscores. For
+#      portability, and until I've determined that nothing calls upon the
+#      current underscored aliases, I will use dashed aliases of the underscored
+#      aliases. The reasoning behind this change is that aliases are like
+#      commands and I prefer commands to be named with dash separators.
+#      Underscores are used for shell variables.
+
+# Date in ISO-8601 format.
 alias date_i="date -j '+%F'"
+alias date-i='date_i';
 
-# Date and time in ISO 8601-1:2019 (proper) with the now explicitly required
-# 'T' separating date and time; in extended separation format. No timezone.
+# Date and time in ISO 8601 format with the `T` (time) character separating
+# date and time. No UTC offset.
 alias datetime_i="date -j '+%FT%T'"
+alias datetime-i="datetime_i";
 
-# Date and time in ISO 8601:2004 allowing a space (or anything) between date
-# and time similar to some (perhaps older?) DB datetime formats. No timezone.
+# Date and time in ISO 8601 extended format with a space separating date and
+# time. No UTC offset. This is similar to some DB datetime formats.
 alias datetime_ii="date -j '+%F %T'"
+alias datetime-ii="datetime_ii";
 
-# Date and time in ISO 8601 in basic format, i.e., no separators. No timezone.
-# This can be useful for (file) names. Note the standard allows decimals
-# following the smallest time value (seconds here) so something like
-# $(datetime_ib).01 can be used for custom needs of the same date time.
+# Date and time in ISO 8601 basic format without separators. No UTC offset.
 alias datetime_ib="date -j '+%Y%m%d%H%M%S'"
+alias datetime-ib="datetime_ib";
 
-# Date and time; same as datetime_ib but with an underscore separating date and
-# time.
+# Date and time in ISO 8601 basic format with an underscore separating date and
+# time. No UTC offset.
 alias datetime_iu="date -j '+%Y%m%d_%H%M%S'"
+alias datetime-iu="datetime_iu";
 
-# Date and time; same as datetime_iu but with hyphens separating date values.
+# Date and time in ISO 8601 (semi-)basic format with dashes separating date
+# values, an underscore separating date and time, and no separators between time
+# values. No UTC offset.
 alias datetime_iuu="date -j '+%Y-%m-%d_%H%M%S'"
+alias datetime-iuu="datetime_iuu";
 
 # Safely rm, mv, and cp files unless we overrride that decision. Obnoxiously, cp
 # doesn't operate like rm and mv in regards to -f overriding -i but there's
