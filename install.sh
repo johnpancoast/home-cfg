@@ -1,44 +1,87 @@
 #!/usr/bin/env bash
 #
-# Install dotfiles, vim colors, and other common *nix'y things I use.
+# Install dotfiles, vim tools and colors, and other common *nix'y things I use.
 #
 # Copyright (c) 2021 John Pancoast <johnpancoast.tech@gmail.com>
 
 # TODO throw things into functions
 # TODO Consider zsh
 
+#
+# Run
+#
+
 script_filepath=$(realpath $0);
 project_dir=$(realpath $(dirname "${script_filepath}"));
 
+declare -A project_paths;
+project_paths[dotfiles]="${project_dir}";
+project_paths[vim]="${project_dir}/.vim";
+project_paths[vim-colorschemes]="${project_dir}/vim-colorschemes";
+
+backup_dir=$(realpath "${HOME}/.nix-common-homedir-backup_$(date -j '+%Y%m%d_%H%M%S')");
+
+declare -A backup_paths;
+backup_paths[dotfiles]="${backup_dir}/dotfiles";
+backup_paths[vim]="${backup_dir}/vim";
+backup_paths[vim-colorschemes]="${backup_dir}/vim/colors";
+
+text_width="80";
+
 bold_text=$(tput bold);
 normal_text=$(tput sgr0);
-
-backup_dir=$(realpath "${HOME}/.dotfiles_$(date -j '+%Y-%m-%d_%H%M%S')");
 
 #
 # Init message
 #
 
+echo "${bold_text}";
+echo -e "\
+nix-common
+
+Copyright (c) 2021 John Pancoast <johnpancoast.tech@gmail.com>
+${normal_text}
+This script will setup my common dotfiles, vim tools and colors, and \
+other common *nix'y tools. Be cautious since certain file paths and \
+directories copied from this script will replace those in your home directory. \
+Files that would be overridden by this script will be backed up to the following \
+directory:\n${backup_dir}.\n" | fold -w ${text_width} -s;
+
+read -p "${bold_text}Do you want to continue? [y/n]: ${normal_text}" input;
+
+if [[ "${input}" != "y" ]]; then
+    echo -e "\nNothing done. Exiting...\n";
+    exit 0;
+fi
+
+echo -e "\nProceeding.";
+echo "${normal_text}";
+
+#
+# Create backup dirs
+#
+
+# Account for backup_dir already existing. This should generally only happen if
+# two calls to the script happened at the same second.
+echo -e "-- Creating backup directories.\n";
+
 if [[ -d "${backup_dir}" ]]; then
-    echo -e "Dotfile backup directory '${backup_dir}' already exists.";
+    echo "Attempted to use the following backup directory but it already exists:";
+    echo -e "${backup_dir}\n";
+    echo "You can generally just run the script again.";
     echo "Exiting...";
     exit 1;
 fi
 
-echo "${bold_text}";
-echo -e "This script will setup my common dotfiles, vim colors, and other useful terminal tools.";
-echo -e "Be cautious since these files and directories WILL be placed in your home directory!";
-echo -e "Dotfiles that would be overridden by this script will be saved to '${backup_dir}'.";
-read -p "If you want to continue, hit [Enter]. ";
-echo "${normal_text}";
+mkdir -p ${backup_paths[dotfiles]};
+mkdir -p ${backup_paths[vim]};
 
 #
-# Backup and hardlink dotfiles
+# Backup dotfiles
 #
 
-mkdir -p ${backup_dir};
+echo -e "-- Copying the following dotfiles to your home directory after backing up the originals:\n";
 
-# BE CAREFUL! We do not want to link all dotfiles that exist in this repo, only those that make sense.
 # TODO Move dotfiles into a devoted `dotfiles` directory in this repo so they're not in main repo directory.
 dotfiles=(
     .bash_aliases
@@ -53,39 +96,42 @@ dotfiles=(
     .vimrc
     .vimrc-go
     .vimrc-jetbrains
-)
-
-echo -e "Hard linking the following dotfiles in home directory.\n"
+);
 
 # Link common dotfiles
-for file in ${dotfiles[@]}; do
-    echo "  ${file}";
+for dotfile in ${dotfiles[@]}; do
+    echo "    - ${dotfile}";
 
-    if [[ -e "${HOME}/${file}" ]]; then
-        mv ${HOME}/${file} ${backup_dir}/${file};
+    # throw file paths into an array for easier access and sanitization
+    declare -A dotfile_paths;
+    dotfile_paths[home]="${HOME}/${dotfile}";
+    dotfile_paths[backup]="${backup_paths[dotfiles]}/${dotfile}";
+    dotfile_paths[project]="${project_paths[dotfiles]}/${dotfile}";
+
+    # since above paths are made entirely of variables do some sanity checks
+    for filepath_key in "${!dotfile_paths[@]}"; do
+        filepath_value="${dotfile_paths[filepath_key]}";
+
+        if [[ "${filepath_value}" == "/" ]]; then
+            echo "${bold_text}MAJOR FAILURE! A filepath_key is defined as '/'. Exiting now...${normal_text}";
+            exit 99;
+        fi
+    done
+
+    if [[ -e "${dotfile_paths[home]}" ]]; then
+        mv ${dotfile_paths[home]} ${dotfile_paths[backup]};
     fi
 
-    ln ${project_dir}/${file} ${HOME}/${file};
+    cp -n ${dotfile_paths[project]} ${dotfile_paths[home]};
 done;
 
-#
-# Handle special cases
-#
-
-# vim extras
-echo "${bold_text}";
-echo -e "Copying .vim extras";
-echo "${normal_text}";
-mkdir -p ${HOME}/.vim
-cp -R ${project_dir}/.vim/* ${HOME}/.vim/
-
 # TODO Determine if jetbrains still uses .ideavimrc
-echo "Symlinking Jetbrain's .ideavimrc file to standard .vimrc";
+echo -e "-- Symlinking Jetbrain's .ideavimrc dotfile to standard .vimrc after backing up original.\n" | fold -w ${text_width} -s;
 if [[ -e "${HOME}/.ideavimrc" ]]; then
-    mv ${HOME}/.ideavimrc ${backup_dir}/.ideavimrc;
+    mv ${HOME}/.ideavimrc ${backup_paths[dotfiles]}/.ideavimrc;
 fi
 
-ln -s ${HOME}/.vimrc ${HOME}/.ideavimrc
+cp -n ${project_paths[dotfiles]}/.ideavimrc ${HOME}/.ideavimrc;
 
 #
 # Include php syntax highlighting
@@ -97,27 +143,46 @@ ln -s ${HOME}/.vimrc ${HOME}/.ideavimrc
 #echo "PHP Syntax updated based on installed packages..."
 
 #
+# Handle vim and other cases
+#
+
+echo -e "-- Copying VIM content after backing up original content.\n";
+
+# vim extras
+declare -A vim_paths;
+vim_paths[home]="${HOME}/.vim";
+vim_paths[project]="${project_dir}/.vim";
+vim_paths[backup]="${backup_paths[vim]}";
+
+mkdir -p ${vim_paths[home]};
+cp -R ${vim_paths[home]}/* ${vim_paths[backup]}/;
+cp -R ${vim_paths[project]}/* ${vim_paths[home]}/;
+
+#
 # Get submodules and copy vim colors among other things that may be added (back) later.
 #
 
-echo "${bold_text}";
-echo "Getting git submodules including a repo for vim color schemes.";
-echo "${normal_text}";
+echo -e "-- Getting git submodules including a repo for vim color schemes.\n";
 
 (cd ${project_dir} && git submodule init && git submodule update);
 
-echo "${bold_text}";
-echo "Copying vim color schemes.";
-echo "${normal_text}";
+echo -e "-- Copying vim color schemes. These were already backed up from the previous vim step.\n" | fold -w ${text_width} -s;
 
-mkdir -p ${HOME}/.vim/
-cp -R ${project_dir}/vim-colorschemes/colors ${HOME}/.vim/
+mkdir -p ${HOME}/.vim/colors
+cp -R ${project_paths[vim-colorschemes]}/colors/* ${HOME}/.vim/colors/
 
-echo -e "Will now source ~/.bashrc since you're already in a shell. Open a new shell or source ~/.bash_profile if you'd like.\n";
-echo "Look into VIM's documentation for how to change color schemes. You should see several colors available in:";
-echo -e "${HOME}/.vim/colors\n";
-echo "${bold_text}Finished!${normal_text}";
+echo -e "${bold_text}\nFinished!\n${normal_text}";
 
-# We don't source ~/.bash_profile since that is intended to be sourced upon terminal initialization.
-# We instead source ~/.bashrc then let the user decide.
-. ~/.bashrc
+echo -e "\
+Now sourcing the ~/.bashrc file since you're already in a shell. If you'd like \
+to source ~/.bash_profile, you can either open a new terminal or source the file \
+manually yourself (generally, ~/.bash_profile is sourced once at the beginning of \
+a terminal session). \
+\n\n
+Look into VIM's documentation for how to change color schemes. You should see \
+several colors available in: ${HOME}/.vim/colors\n" | fold -w ${text_width} -s;
+
+# Although you can, you generally don't source ~/.bash_profile more than once in
+# a terminal session so we just source ~/.bashrc here.
+source ~/.bashrc
+
