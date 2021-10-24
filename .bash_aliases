@@ -72,10 +72,21 @@ alias cp="cp -i";
 alias aws="docker run --rm -it amazon/aws-cli";
 alias paws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli";
 
-# get current ip from ifconfig
-# First aliases requires GETIP_LOOKUP_INTERFACE be set in envoronment
-alias getip="ifconfig | grep ${GETIP_LOOKUP_INTERFACE} -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
+[[ $IFCONFIG_INTERFACE != "" ]] && LOCAL_IFCONFIG_INTERFACE="$IFCONFIG_INTERFACE" || LOCAL_IFCONFIG_INTERFACE="en0";
+
+# get current ip from ifconfig.
+#
+# There are a few optional ways to define the interface for these aliases.
+#   1. Use `getip` to get the IP for the default `en0` interface, assuming the
+#      `$IFCONFIG_INTERFACE` environment variable hasn't been set.
+#   2. Set the `$IFCONFIG_INTERFACE` environment variable to something aside from the drfault.
+#   3. Use the hardcoded interface commands like getip_en0, getip_en1, etc.
+alias getip="ifconfig | grep ${LOCAL_IFCONFIG_INTERFACE} -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
 alias getip_en0="ifconfig | grep en0 -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
+alias getip_en1="ifconfig | grep en1 -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
+alias getip_en2="ifconfig | grep en2 -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
+alias getip_en3="ifconfig | grep en3 -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
+alias getip_en4="ifconfig | grep en4 -A 5 | grep inet | sed -E 's/.*inet ([0-9.]+) netmask.*/\1/'";
 
 # Simply left for a reminder of how much better things are these days
 alias sdiff="svn diff|view -";
