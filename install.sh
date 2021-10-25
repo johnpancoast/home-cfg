@@ -19,7 +19,7 @@ project_paths[dotfiles]="${project_dir}";
 project_paths[vim]="${project_dir}/.vim";
 project_paths[vim-colorschemes]="${project_dir}/vim-colorschemes";
 
-backup_dir=$(realpath "${HOME}/.nix-common-homedir-backup_$(date -j '+%Y%m%d_%H%M%S')");
+backup_dir="${HOME}/.nix-common-homedir-backup/$(date -j '+%Y-%m-%d_%H%M%S')";
 
 declare -A backup_paths;
 backup_paths[dotfiles]="${backup_dir}/dotfiles";
@@ -45,7 +45,7 @@ This script will setup my common dotfiles, vim tools and colors, and \
 other common *nix'y tools. Be cautious since certain file paths and \
 directories copied from this script will replace those in your home directory. \
 Files that would be overridden by this script will be backed up to the following \
-directory:\n${backup_dir}.\n" | fold -w ${text_width} -s;
+directory:\n${backup_dir}\n" | fold -w ${text_width} -s;
 
 read -p "${bold_text}Do you want to continue? [y/n]: ${normal_text}" input;
 
