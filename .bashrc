@@ -136,15 +136,12 @@ reset=$(tput -Txterm sgr0)
 export PROMPT_DIRTRIM=4;
 
 # Includes the absolute directory of the current PWD by using bash prompt \w symbol
-export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] ';
-
-# XXX - Note that these are no longer necessary due to now being on bash v4 and being able to use the PROMPT_DIRTRIM
-# variable. Leaving these for reference for now but remove them when deemed unnecessary.
-# Includes only the basedir of the directory of the current PWD by using bash prompt \w symbol
-#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\W\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
-
-# Includes the absolute, but cut, directory of the current PWD using local print_pwd_short() function.
-#export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]$(print_pwd_short)\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+# Allow for env var to make for different configs.
+if [[ "${TERM_PS1}" == "basic" ]]; then
+    export PS1='$ ';
+else
+    export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] ';
+fi
 
 # TODO Fix this below if we can make PS1 cleaner.
 #################
