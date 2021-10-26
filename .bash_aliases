@@ -69,8 +69,8 @@ alias mv="mv -i";
 alias cp="cp -i";
 
 # docker aws
-alias aws="docker run --rm -it amazon/aws-cli";
-alias paws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli";
+#alias aws="docker run --rm -it amazon/aws-cli";
+#alias paws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli";
 
 [[ $IFCONFIG_INTERFACE != "" ]] && LOCAL_IFCONFIG_INTERFACE="$IFCONFIG_INTERFACE" || LOCAL_IFCONFIG_INTERFACE="en0";
 
