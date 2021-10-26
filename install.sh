@@ -171,14 +171,14 @@ echo -e "-- Copying vim color schemes. These were already backed up from the pre
 mkdir -p ${HOME}/.vim/colors
 cp -R ${project_paths[vim-colorschemes]}/colors/* ${HOME}/.vim/colors/
 
-echo -e "${bold_text}\nFinished!\n${normal_text}";
+echo -e "-- ${bold_text}Finished!\n${normal_text}";
 
 echo -e "\
 Now sourcing the ~/.bashrc file since you're already in a shell. If you'd like \
 to source ~/.bash_profile, you can either open a new terminal or source the file \
 manually yourself (generally, ~/.bash_profile is sourced once at the beginning of \
 a terminal session). \
-\n\n
+\n
 Look into VIM's documentation for how to change color schemes. You should see \
 several colors available in: ${HOME}/.vim/colors\n" | fold -w ${text_width} -s;
 
