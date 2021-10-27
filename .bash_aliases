@@ -1,10 +1,6 @@
 #
 # Common, basic aliases
 #
-# Don't add aliases you won't use if you're just going to tab the cmd out
-# easily anyway. Sometimes aliases get added that never get used so just don't
-# =P. And to all the hipsters who'll read this, z shell schmee shell, I'm fine
-# with bash!
 alias l="ls -a";
 alias ll="ls -alh";
 alias ..="cd ..";
@@ -15,7 +11,7 @@ alias h="history";
 alias curls="curl -sS"
 
 #
-# Dates
+# Date and datetime aliases for simple formatting.
 #
 # TODO Change below date aliases to use functions (or move them to scripts) so
 #      that they can accept input. For example, perhaps different date and time
@@ -27,10 +23,10 @@ alias curls="curl -sS"
 #
 # TODO (in progress) Add aliases with dashes instead of underscores. For
 #      portability, and until I've determined that nothing calls upon the
-#      current underscored aliases, I will use dashed aliases of the underscored
-#      aliases. The reasoning behind this change is that aliases are like
-#      commands and I prefer commands to be named with dash separators.
-#      Underscores are used for shell variables.
+#      current underscored aliases, I will use dashed aliases that alias to the
+#      current underscored aliases. The reasoning behind this change is that
+#      aliases are like commands and I prefer commands to be named with dash
+#      separators. Underscores are used for shell variables.
 
 # Date in ISO-8601 format.
 alias date_i="date -j '+%F'"
