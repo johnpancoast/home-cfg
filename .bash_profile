@@ -11,6 +11,8 @@
 #
 # Much of PATH has already been set by certain systems (like with
 # /etc/environment, for example).
+#
+# TODO Allow these paths to come from a separate machine-independent file.
 paths=(
     # personal bin. place before others so personal commands can override
     # others similarly to /usr/local/bin commands overriding /usr/bin commands.
@@ -43,7 +45,7 @@ paths=(
     /usr/local/share/dotnet
 
     # flutter
-    ~/Computing/software/flutter/bin
+    ***REMOVED***
 );
 
 for path in ${paths[@]}; do
