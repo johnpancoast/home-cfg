@@ -26,7 +26,7 @@ paths=(
     #~/Library/Android/sdk/tools
 
     # symfony's bin
-    #~/.symfony/bin
+    ~/.symfony/bin
 
     # TODO still needed?
     #/usr/local/opt/coreutils/libexec/gnubin
