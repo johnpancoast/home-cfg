@@ -46,8 +46,10 @@ paths=(
     ~/Computing/software/flutter/bin
 );
 
-for i in ${paths[@]}; do
-    PATH="$PATH:$i";
+for path in ${paths[@]}; do
+    if [ -e "${path}" ]; then
+        PATH="${PATH}:${path}";
+    fi
 done
 
 export PATH;
