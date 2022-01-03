@@ -14,29 +14,24 @@
 #
 # TODO Allow these paths to come from a separate machine-independent file.
 paths=(
-    # personal bin. place before others so personal commands can override
-    # others similarly to /usr/local/bin commands overriding /usr/bin commands.
+    # user's bin. Keep as first.
     ~/bin
 
-    # for homebrew
+    # homebrew
     /usr/local/sbin
 
     # android dev
-    #~/Library/Android/sdk/platform-tools
+    ~/Library/Android/sdk/platform-tools
     #~/Library/Android/sdk/tools
 
-    # symfony's bin
+    # symfony
     ~/.symfony/bin
+
+    # composer
+    ~/.composer/vendor/bin
 
     # TODO still needed?
     #/usr/local/opt/coreutils/libexec/gnubin
-
-    # composer global vendor bin
-    ~/.composer/vendor/bin
-
-    # php bin
-    # TODO still needed?
-    #$(brew --prefix php@7.1)/bin
 
     # go
     ~/go/bin
