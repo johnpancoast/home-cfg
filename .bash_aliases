@@ -167,6 +167,8 @@ fi
 
 # Loop any defined `$common_dirs` elements. See docs above where $common_dirs
 # array is declared.
+# TODO Fix this mess. Only the cd-* aliases will work but the $d_* variables
+#      with tildes will not work due to bash's expansion rules.
 for dir_name in ${!common_dirs[@]}; do
     dir_value="${common_dirs[$dir_name]}";
 
