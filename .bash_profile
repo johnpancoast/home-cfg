@@ -5,14 +5,14 @@
 # PATH, etc
 ########################################
 
-[[ -s ~/.bashrc ]] && source ~/.bashrc
+[[ -e ~/.bashrc ]] && source ~/.bashrc;
 
-# PATH - array of paths to be added to PATH env variable
-#
-# Much of PATH has already been set by certain systems (like with
-# /etc/environment, for example).
-#
-# TODO Allow these paths to come from a separate machine-independent file.
+# Add non-generic files to this array in the included file if you wish. This
+# allows this .bash_profile file to stay consistent when using it via repo.
+priv_paths=();
+[[ -e ~/.bash_profile_priv ]] && source ~/.bash_profile_priv;
+
+# Generic paths that can apply to all machines.
 paths=(
     # user's bin. Keep as first.
     ~/bin
@@ -20,33 +20,13 @@ paths=(
     # homebrew
     /usr/local/sbin
 
-    # android dev
-    ~/Library/Android/sdk/platform-tools
-    #~/Library/Android/sdk/tools
-
-    # symfony
-    ~/.symfony/bin
-
-    # composer
-    ~/.composer/vendor/bin
-
-    # TODO still needed?
-    #/usr/local/opt/coreutils/libexec/gnubin
-
-    # go
-    ~/go/bin
-
-    # .net
-    /usr/local/share/dotnet
-
-    # flutter
-    ***REMOVED***
+    # Do NOT commit non-generic paths here. You can instead create a
+    # ~/.bash_profile_priv file and add to the paths_priv() array in that file.
+    ${priv_paths[@]}
 );
 
 for path in ${paths[@]}; do
-    if [ -e "${path}" ]; then
-        PATH="${PATH}:${path}";
-    fi
+    [[ -e "${path}" ]] && PATH="${PATH}:${path}";
 done
 
 export PATH;
