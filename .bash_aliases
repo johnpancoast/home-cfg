@@ -57,6 +57,10 @@ alias datetime-iu="datetime_iu";
 alias datetime_iuu="date -j '+%Y-%m-%d_%H%M%S'"
 alias datetime-iuu="datetime_iuu";
 
+# Sinplified alias of date and time in ISO 8601 basic format with an underscore
+# separating date and time. No UTC offset.
+alias ts="datetime-iu";
+
 # Safely rm, mv, and cp files unless we overrride that decision. Obnoxiously, cp
 # doesn't operate like rm and mv in regards to -f overriding -i but there's
 # always the `yes` cmd I guess
