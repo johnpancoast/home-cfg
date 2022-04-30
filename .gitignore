@@ -1,0 +1,3 @@
+# The directory in $HOME where this repository is expected to be cloned MUST be
+# ignored. Avoids problems of recursion.  See [README.md](/README.md)
+.cfg
