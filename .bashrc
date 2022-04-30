@@ -5,7 +5,8 @@
 # Functions
 #
 
-has_parent_dir () {
+function has_parent_dir()
+{
     # Utility function so we can test for things like .git/.hg without firing up a
     # separate process
     test -d "$1" && return 0;
@@ -21,7 +22,8 @@ has_parent_dir () {
     return 1;
 }
 
-vcs_name() {
+function vcs_name()
+{
     if [ -d .svn ]; then
         echo "-[svn]";
     elif has_parent_dir ".git"; then
@@ -29,6 +31,77 @@ vcs_name() {
     elif has_parent_dir ".hg"; then
         echo " ($(hg branch))"
     fi
+}
+
+# Set PS1 prompt
+#
+# _Dashed name since this doubles as command._
+#
+# Depends on vars in this script. For special character meanings in PS1 string
+# (like \w), see
+# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+#
+# -$1 string The title of the PS1 to switch to.
+function set-ps1()
+{
+    case $1 in
+        # Basic prompt. Can be useful for copy/pasting examples among other things.
+        basic)
+            export PS1='$ ';
+            ;;
+        # Similar to default prompt but only displays basedir in PWD. This is
+        # useful for bash v3 (macOS default) where PROMPT_DIRTRIM doesn't yet exist.
+        default-base-dir)
+            export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\W\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] '
+            ;;
+        # Default prompt containing two lines with first containing time,
+        # use/system, pwd, and vcs info if in a repo directory with second line
+        # allowing for command input. Assumes bash version >= 4 since it
+        # implicitly relies on PROMPT_DIRTRIM to limit PWD's length.
+        default| * )
+            export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] ';
+            ;;
+    esac
+
+    # TODO Was attemping to simplify how PS1 is created and was just breaking shit... remove below if won't be used
+    #
+    #################
+    ## prompt parts #
+    #################
+    ## main
+    #open="["
+    #close="]"
+    #sep="-"
+    #color_reset="\[$bold\]\[$black\]"
+    #
+    ## user
+    #open_user=${open}
+    #close_user=${close}
+    #user="\u"
+    #host="\h"
+    #
+    ## dir
+    #open_dir="${open}"
+    #close_dir="${close}"
+    #dir="\w"
+    #
+    ## repo
+    #open_repo="${open}"
+    #close_repo="${close}"
+    #repo="\[\033[0;33m\]${vcs_name}\[\033[00m\]"
+    #
+    ## begin end
+    #prompt_begin="${color_reset}"
+    #prompt_end="\$ ${reset}"
+    #
+    ####################
+    ## prompt sections #
+    ####################
+    #prompt_user="${color_reset}\[${yellow}\]${open_user}${user}@${host}${close_user}"
+    #prompt_dir="${color_reset}\[${lt_blue}\]${open_dir}${dir}${close_dir}"
+    #prompt_repo="${color_reset}\[${pink}\]${open_repo}${repo}${close_repo}"
+    #
+    #export PS1="${prompt_begin}${prompt_user}${sep}${prompt_dir}${sep}${prompt_repo}${sep}${prompt_end}"
 }
 
 #
@@ -117,6 +190,10 @@ export CLICOLOR=1
 #export LSCOLORS="ExGxBxDxCxExEdxbxxgxax"
 export LSCOLORS="ExGxBxDxCxEgEdxbxggcad"
 
+#
+# Terminal prompt, PS1
+#
+
 black=$(tput -Txterm setaf 0)
 red=$(tput -Txterm setaf 1)
 green=$(tput -Txterm setaf 2)
@@ -128,59 +205,17 @@ lt_blue=$(tput -Txterm setaf 6)
 bold=$(tput -Txterm bold)
 reset=$(tput -Txterm sgr0)
 
-#
-# Terminal prompt, PS1
-#
-
-# Usable in bash >= v4.
+# Env var to set the amount of directories, up to current base directory, to be
+# displayed in the prompt's \w and \W special character values. You can also
+# change this in CLI and it will change PS1 dynamically.
 export PROMPT_DIRTRIM=4;
 
-# Includes the absolute directory of the current PWD by using bash prompt \w symbol
-# Allow for env var to make for different configs.
-if [[ "${TERM_PS1}" == "basic" ]]; then
-    export PS1='$ ';
-else
-    export PS1='\[$bold\]\[$black\][\[$dk_blue\]\@\[$black\]]-\[$bold\]\[$black\][\[$green\]\u\[$yellow\]@\[$green\]\h\[$black\]]-[\[$pink\]\w\[$black\]\[$reset\]\[$lt_blue\]$(vcs_name)\[$bold\]\[$black\]]\[$reset\]\n|-$\[$reset\] ';
-fi
+# Set PS1. You can also call this from CLI to change PS1. See options within the set-ps1 function.
+set-ps1 "default";
 
-# TODO Fix this below if we can make PS1 cleaner.
-#################
-## prompt parts #
-#################
-## main
-#open="["
-#close="]"
-#sep="-"
-#color_reset="\[$bold\]\[$black\]"
 #
-## user
-#open_user=${open}
-#close_user=${close}
-#user="\u"
-#host="\h"
+# General
 #
-## dir
-#open_dir="${open}"
-#close_dir="${close}"
-#dir="\w"
-#
-## repo
-#open_repo="${open}"
-#close_repo="${close}"
-#repo="\[\033[0;33m\]${vcs_name}\[\033[00m\]"
-#
-## begin end
-#prompt_begin="${color_reset}"
-#prompt_end="\$ ${reset}"
-#
-####################
-## prompt sections #
-####################
-#prompt_user="${color_reset}\[${yellow}\]${open_user}${user}@${host}${close_user}"
-#prompt_dir="${color_reset}\[${lt_blue}\]${open_dir}${dir}${close_dir}"
-#prompt_repo="${color_reset}\[${pink}\]${open_repo}${repo}${close_repo}"
-#
-#export PS1="${prompt_begin}${prompt_user}${sep}${prompt_dir}${sep}${prompt_repo}${sep}${prompt_end}"
 
 # ls colors
 [ "$TERM" = "xterm" ] && TERM="xterm-256color"
