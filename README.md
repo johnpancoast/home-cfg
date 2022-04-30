@@ -1,11 +1,12 @@
-nix-common
-==========
+# nix-home
+Configuration for my unix and linux home directories; dot files, bin files, etc.
 
-My common tools for &#42;nix machines. This includes utilities and dot files
-amongst whatever else...
+> _**NOTE:** This repo's name is changing to `nix-home`, and thus its URL will
+change. Theoretically only I use this so..._
 
-# Install
-... docs soon.
+## Install
+Docs to come. This repo will rely on the handy method seen at
+[https://www.atlassian.com/git/tutorials/dotfiles](https://www.atlassian.com/git/tutorials/dotfiles).
 
 # TODO
 * I think the git submodules are mis-configured. Look into that.
