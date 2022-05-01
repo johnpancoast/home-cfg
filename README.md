@@ -1,8 +1,8 @@
-# nix-home
+# home-cfg
 Configuration for my unix and linux home directories; dot files, bin files, etc.
 
-> _**NOTE:** This repo's name is changing to `nix-home`, and thus its URL will
-change. Theoretically only I use this so..._
+> _**NOTE:** The repo's name changed to home-cfg so clones of this repo must
+change their remotes to this repo's URL._
 
 ## Install
 Docs to come. This repo will rely on the handy method seen at
