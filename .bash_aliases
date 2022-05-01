@@ -76,6 +76,8 @@ alias ts="dt";
 
 # get current ip from ifconfig.
 #
+# TODO Move this to functions in bashrc
+#
 # There are a few optional ways to define the interface for these aliases.
 #   1. Use `getip` to get the IP for the default `en0` interface, assuming the
 #      `$IFCONFIG_INTERFACE` environment variable hasn't been set.
