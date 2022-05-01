@@ -16,6 +16,8 @@ alias curls="curl -sS"
 alias rm="rm -i";
 alias mv="mv -i";
 alias cp="cp -i";
+# For working with bare clone of the nix-home repo
+alias home-cfg='/usr/bin/git --git-dir=$HOME/.homecfg/ --work-tree=$HOME'
 
 #
 # Date and datetime aliases for simple formatting.
