@@ -9,6 +9,13 @@ alias v="vagrant";
 alias d="docker";
 alias h="history";
 alias curls="curl -sS"
+# Safely rm, mv, and cp files unless we overrride that decision with -f (I nerf
+# myself when I'm working quickly) Obnoxiously, cp doesn't operate like rm and
+# mv in regards to -f overriding -i but there's always the `yes` cmd to prepend
+# to the command.
+alias rm="rm -i";
+alias mv="mv -i";
+alias cp="cp -i";
 
 #
 # Date and datetime aliases for simple formatting.
@@ -60,13 +67,6 @@ alias datetime-iuu="datetime_iuu";
 # Shorter datetime aliases for convenience
 alias dt="datetime-iu";
 alias ts="dt";
-
-# Safely rm, mv, and cp files unless we overrride that decision. Obnoxiously, cp
-# doesn't operate like rm and mv in regards to -f overriding -i but there's
-# always the `yes` cmd I guess
-alias rm="rm -i";
-alias mv="mv -i";
-alias cp="cp -i";
 
 # docker aws
 #alias aws="docker run --rm -it amazon/aws-cli";
