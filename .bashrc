@@ -208,7 +208,7 @@ reset=$(tput -Txterm sgr0)
 # Env var to set the amount of directories, up to current base directory, to be
 # displayed in the prompt's \w and \W special character values. You can also
 # change this in CLI and it will change PS1 dynamically.
-export PROMPT_DIRTRIM=4;
+export PROMPT_DIRTRIM=3;
 
 # Set PS1. You can also call this from CLI to change PS1. See options within the set-ps1 function.
 set-ps1 "default";
