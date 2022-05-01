@@ -1,8 +1,9 @@
 # home-cfg
 Configuration for my unix and linux home directories; dot files, bin files, etc.
 
-> _**NOTE:** The repo's name changed to home-cfg so clones of this repo must
-change their remotes to this repo's URL._
+> _**NOTE:** The repo's name changed so clones of this repo must change their
+remotes to this repo's URL at
+[git@github.com:johnpancoast/home-cfg](git@github.com:johnpancoast/home-cfg.git)._
 
 ## Install
 Docs to come. This repo will rely on the handy method seen at
