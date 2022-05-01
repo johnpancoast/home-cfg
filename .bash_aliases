@@ -17,7 +17,7 @@ alias rm="rm -i";
 alias mv="mv -i";
 alias cp="cp -i";
 # For working with bare clone of the home-cfg repo and allowing for easy management of dotfiles and the like
-alias home-cfg='/usr/bin/git --git-dir=$HOME/.homecfg/ --work-tree=$HOME'
+alias home-cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 #
 # Date and datetime aliases for simple formatting.
