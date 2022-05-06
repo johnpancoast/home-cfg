@@ -25,7 +25,7 @@ using git's sparse checkout to exclude checking out certain files.
   different path for clone dir and working tree dir (which will be home dir).
 
     ```shell
-    alias home-cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+    alias home-cfg=/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME
     ```
 
 * Checkout repo / copy repo files to home dir.
