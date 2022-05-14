@@ -21,7 +21,7 @@ project_paths[dotfiles]="${project_dir}";
 project_paths[vim]="${project_dir}/.vim";
 project_paths[vim-colorschemes]="${project_dir}/vim-colorschemes";
 
-backup_dir="${HOME}/.nix-common-homedir-backup/$(date -j '+%Y-%m-%d_%H%M%S')";
+backup_dir="${HOME}/.home-cfg-backup_$(date -j '+%Y-%m-%d_%H%M%S')";
 
 declare -A backup_paths;
 backup_paths[dotfiles]="${backup_dir}/dotfiles";
