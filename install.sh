@@ -39,7 +39,7 @@ normal_text=$(tput sgr0);
 
 echo "${bold_text}";
 echo -e "\
-nix-common
+home-cfg
 
 Copyright (c) 2021 John Pancoast <johnpancoast.tech@gmail.com>
 ${normal_text}
