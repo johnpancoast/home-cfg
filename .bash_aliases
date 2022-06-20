@@ -8,7 +8,7 @@ alias vi="vim";
 alias v="vagrant";
 alias d="docker";
 alias h="history";
-alias curls="curl -sS"
+alias curls="curl -isS"
 # Safely rm, mv, and cp files unless we overrride that decision with -f (I nerf
 # myself when I'm working quickly) Obnoxiously, cp doesn't operate like rm and
 # mv in regards to -f overriding -i but there's always the `yes` cmd to prepend
