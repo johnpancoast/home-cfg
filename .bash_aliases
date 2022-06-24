@@ -1,4 +1,12 @@
 #
+# Bash aliases
+#
+# A long-term goal for my dotfiles such as this one (and for related home
+# configuration) is for them to be compatible across different linux and unix
+# systems. At the moment, many aliases are system specific, namely for macOS.
+# TODO fix this.
+
+#
 # Common, basic aliases
 #
 alias l="ls -a";
@@ -131,17 +139,17 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #
 # $common_dirs
 #
-# An associative array of commonly accessed directories where each array key is
-# a directory name (underscore or dash separated) and each value is the
-# directory path. For example, "example-name" => "/example/dir". Each directory
-# name and path will have useful variables and aliases created so they can be
-# accessed programmatically.
+# A hash of commonly accessed directories where each key is a directory name
+# (no spaces, underscore or dash separated) and each value is the directory
+# path. For example, "example-name" => "/example/dir". Each directory name and
+# path will have useful variables and aliases created so they can be accessed
+# programmatically.
 #
-# You can add to the ${common_dirs} associate array in either your private
-# git-ignored `~/.bash_aliases_priv` file or you can add to the array in this
-# file if the addition is general and meant for public use in a public repo. Use
-# the following syntax in either case (use double quotes for values and escape
-# spaces with slashes):
+# You can add to the ${common_dirs} array in this, or sourced, files such as
+# the `~/.bash_aliases_priv` sourced below.
+#
+# Use the following syntax and make sure to use double quotes and proper
+# escapes while taking into account bash's expansions:
 #
 #   ```
 #   common_dirs[my-pics]="~/Documents";
@@ -149,55 +157,52 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #
 # The following notes apply to this array and its elements:
 #
-# * The `$common_dirs` array will be in the shell's scope. But even better...
+# * The `$common_dirs` array will be in the shell's scope of course.
 #
 # * For each `[key]` in the `$common_dirs` array, a variable named `$d_[key]`
-#   will be created with the directory path as the value. The `d_` prefix
-#   denotes directory.
+#   will be created (with all dashes converted to underscores) where the value
+#   is the directory. This allows each directory to be accessed
+#   programatically.
 #
-# * For each `[key]` in the `$common_dirs` array, an alias named `cd-[key]` will
-#   be created (with dashes instead of underscores) which will `cd` to the
-#   directory value. An equivalent alias of `c-[key]` will also be created.
+# * For each `[key]` in the `$common_dirs` array, an alias named `c-[key]` will
+#   be created (with all underscores converted to dashes) which will `cd` to
+#   the directory value.
 declare -A common_dirs;
 
-# Private bash aliases file which is not included in this repository. This is
-# useful for machine specific aliases and/or aliases that don't belong in this
-# file or the repo this file lives in.
+# Source a non-public, system-specific .bash_aliases_priv file that can add
+# aliases and custom behavior to the general functionality provided by this
+# default .bash_aliases file.
 #
-# Note that the `$common_dirs` array can also be added to from this file.
+# Note that the `$common_dirs` hash above can be modified by this file.
 if [ -f ~/.bash_aliases_priv ]; then
     . ~/.bash_aliases_priv
 fi
 
-# Loop any defined `$common_dirs` elements. See docs above where $common_dirs
-# array is declared.
+# Loop $common_dirs` and create useful variables and aliases.
+# See docs above where $common_dirs array is declared.
+#
 # TODO Fix this mess. Only the cd-* aliases will work but the $d_* variables
 #      with tildes will not work due to bash's expansion rules.
 for dir_name in ${!common_dirs[@]}; do
     dir_value="${common_dirs[$dir_name]}";
 
-    # For now our substitution is simple based on naming convention assumptions
+    # For now our substitution is simply based on naming convention assumptions
     # but we can improve the substitutions later if necessary.
     dir_name_underscored=${dir_name//-/_};
     dir_name_dashed=${dir_name//_/-};
 
-    # Declare our variable(s) to export. This will declare variables named
-    # ${d_[key]} where [key] is the array key (directory name) of this
-    # iteration. That is, all array keys in ${common_dirs} will end up with
-    # underscored variables prefixed with `d_` (directory) and a value of the
-    # dir path. This allows important directories to be referenced
-    # programmatically.
+    # Declare a variable named $d_[key] where [key] is underscored key name of
+    # this iteration and where the value is the directory.
     declare d_${dir_name_underscored}="${dir_value}";
     export "d_${dir_name_underscored}";
 
-    # Create alias(es) to easily change to the directories. This will declare
-    # aliases named `cd-[key]` and and equivalent `c-[key]` where [key] is the
-    # array (directory name) and the alias changes to the directory path of the
-    # value. Alias(es) are named using dash separators.
+    # Create alias to cd to this directory. Declares an alias named c-[key]
+    # where [key] is the dashed key name of this iteration and where the alias
+    # values cd's to the directory.
     alias "cd-${dir_name_dashed}"="cd ${dir_value}";
     alias "c-${dir_name_dashed}"="cd-${dir_name_dashed}"; # alias of the above alias name
 
-    # Of course much more can be done for these directories. Things may get more
-    # contextual and possibly even live in other called scripts but this just
-    # allows quicker actions on common paths.
+    # Of course much more can be done for these directories. Things may get
+    # more contextual and possibly even live in other called scripts but for
+    # now, this just allows quicker actions on common paths.
 done
