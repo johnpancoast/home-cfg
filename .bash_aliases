@@ -181,8 +181,7 @@ fi
 # Loop $common_dirs` and create useful variables and aliases.
 # See docs above where $common_dirs array is declared.
 #
-# TODO Fix this mess. Only the cd-* aliases will work but the $d_* variables
-#      with tildes will not work due to bash's expansion rules.
+# TODO Only the c-* aliases will work but the $d_* variables with tildes will not work. Fix directory expansion handling.
 for dir_name in ${!common_dirs[@]}; do
     dir_value="${common_dirs[$dir_name]}";
 
@@ -199,8 +198,7 @@ for dir_name in ${!common_dirs[@]}; do
     # Create alias to cd to this directory. Declares an alias named c-[key]
     # where [key] is the dashed key name of this iteration and where the alias
     # values cd's to the directory.
-    alias "cd-${dir_name_dashed}"="cd ${dir_value}";
-    alias "c-${dir_name_dashed}"="cd-${dir_name_dashed}"; # alias of the above alias name
+    alias "c-${dir_name_dashed}"="cd ${dir_value}";
 
     # Of course much more can be done for these directories. Things may get
     # more contextual and possibly even live in other called scripts but for
