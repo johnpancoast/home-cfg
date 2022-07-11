@@ -22,6 +22,8 @@ remotes to this repo's URL at
   will be backed up first.
 
 # TODO
+* Add zsh aliternatives.
+
 * I think the git submodules are mis-configured. Look into that.
 
 * Some of the files in this repo should be moved to their own repo and brought
