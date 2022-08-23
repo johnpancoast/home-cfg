@@ -9,6 +9,7 @@
 [core]
 	editor = vim
 	autocrlf = input
+	pager =
 [credential]
 	helper = osxkeychain
 [user]
@@ -34,5 +35,3 @@
 	required = true
 [init]
 	defaultBranch = main
-[pager]
-	branch = false
