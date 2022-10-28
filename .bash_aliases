@@ -4,7 +4,6 @@
 # A long-term goal for my dotfiles such as this one (and for related home
 # configuration) is for them to be compatible across different linux and unix
 # systems. At the moment, many aliases are system specific, namely for macOS.
-# TODO fix this.
 
 #
 # Common, basic aliases
@@ -82,11 +81,10 @@ alias ts="dt";
 #alias aws="docker run --rm -it amazon/aws-cli";
 #alias paws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli";
 
+# TODO Move this declaration and below getip* aliases into function and make system independent.
 [[ $IFCONFIG_INTERFACE != "" ]] && LOCAL_IFCONFIG_INTERFACE="$IFCONFIG_INTERFACE" || LOCAL_IFCONFIG_INTERFACE="en0";
 
-# get current ip from ifconfig.
-#
-# TODO Move this to functions in bashrc
+# Get current ip from ifconfig (currently macOS only)
 #
 # There are a few optional ways to define the interface for these aliases.
 #   1. Use `getip` to get the IP for the default `en0` interface, assuming the
@@ -136,23 +134,22 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-#
 # $common_dirs
 #
-# A hash of commonly accessed directories where each key is a directory name
+# A hashmap of commonly accessed directories where each key is a directory name
 # (no spaces, underscore or dash separated) and each value is the directory
 # path. For example, "example-name" => "/example/dir". Each directory name and
 # path will have useful variables and aliases created so they can be accessed
 # programmatically.
 #
 # You can add to the ${common_dirs} array in this, or sourced, files such as
-# the `~/.bash_aliases_priv` sourced below.
+# the `~/.bash_aliases_priv` file sourced below.
 #
 # Use the following syntax and make sure to use double quotes and proper
 # escapes while taking into account bash's expansions:
 #
 #   ```
-#   common_dirs[my-pics]="~/Documents";
+#   common_dirs[foo-bar]="~/foo/bar";
 #   ```
 #
 # The following notes apply to this array and its elements:
@@ -169,19 +166,26 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #   the directory value.
 declare -A common_dirs;
 
-# Source a non-public, system-specific .bash_aliases_priv file that can add
-# aliases and custom behavior to the general functionality provided by this
-# default .bash_aliases file.
+# Common dirs. See comments above where $common_dirs is declared.
 #
-# Note that the `$common_dirs` hash above can be modified by this file.
+#common_dirs[foobar]="~/foo/bar";
+
+# Common hosts
+# TODO Add same concept as common_dirs but for common_hosts along with ssh
+# capability (think of data structure for that). For now keep it simple
+declare -A common_hosts;
+
+# Common hosts. See comments above where $common_hosts is declared.
+#common_hosts[name]="example.com";
+
+# Source additional aliases. Useful if this file is part of a repo and sourced
+# file isn't. This can add to $common_* variables as necessary.
 if [ -f ~/.bash_aliases_priv ]; then
     . ~/.bash_aliases_priv
 fi
 
 # Loop $common_dirs` and create useful variables and aliases.
 # See docs above where $common_dirs array is declared.
-#
-# TODO Only the c-* aliases will work but the $d_* variables with tildes will not work. Fix directory expansion handling.
 for dir_name in ${!common_dirs[@]}; do
     dir_value="${common_dirs[$dir_name]}";
 
@@ -204,3 +208,6 @@ for dir_name in ${!common_dirs[@]}; do
     # more contextual and possibly even live in other called scripts but for
     # now, this just allows quicker actions on common paths.
 done
+
+# TODO Loop $common_hosts similarly to $common_dirs to set useful vars.
+# For now, vars or aliases may be created manually.
