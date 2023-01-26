@@ -187,7 +187,8 @@ fi
 # Loop $common_dirs` and create useful variables and aliases.
 # See docs above where $common_dirs array is declared.
 for dir_name in ${!common_dirs[@]}; do
-    dir_value="${common_dirs[$dir_name]}";
+    # Set directory value with tilde expanded
+    dir_value="${HOME}/${common_dirs[$dir_name]#\~/}";
 
     # For now our substitution is simply based on naming convention assumptions
     # but we can improve the substitutions later if necessary.
